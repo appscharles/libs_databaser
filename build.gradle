@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'com.jfrog.bintray' version '1.8.3'
+}
+
+group 'com.appscharles.libs'
+version '1.0.0.0-dev0'
+
+sourceCompatibility = 1.8
+
+apply from: 'gradle/UTF8Encoder.gradle'
+apply from: 'gradle/BintrayPublisher.gradle'
+apply from: 'gradle/SourceSetter.gradle'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://dl.bintray.com/appscharles/libs'
+    }
+}
+
+dependencies {
+    compile group: 'com.h2database', name: 'h2', version: '1.4.197'
+    compile group: 'io.ebean', name: 'ebean', version: '11.18.4'
+    compile group: 'com.appscharles.libs', name: 'dialoger', version: '1.0.0.0-dev1'
+    compile group: 'com.appscharles.libs', name: 'processer', version: '1.0.0.0-dev5'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.8.0-beta2'
+    testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.8.0-beta2'
+    testCompile group: 'com.appscharles.libs', name: 'logger', version: '1.0.0.0-dev19'
+    testCompile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.0'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

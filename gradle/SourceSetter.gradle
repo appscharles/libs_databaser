@@ -1,0 +1,8 @@
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/java", "src/main/resources"]
+            includes = ["**/*.txt", "**/*.fxml", "**/*.css", "**/*.png", "**/*.properties"]
+        }
+    }
+}

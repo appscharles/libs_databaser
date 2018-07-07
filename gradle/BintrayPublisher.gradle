@@ -1,0 +1,59 @@
+import java.nio.file.Files
+import java.nio.file.Paths
+
+/****************************************************************************
+ ***************************** IMPLEMENTATION *******************************
+ 1. Add plugins 'maven-publish' and 'com.jfrog.bintray'
+
+ 2. Configuration Bintray Publisher in below defined 'bintrayPublisherConfig'
+
+ 3. Information of configuration bintray data file:
+ 1 line in file: user of bintray
+ 2 line in file: api key of bintray
+
+ 4. Publish in bintray by task 'bintrayDeploy'
+ ****************************************************************************/
+
+// Configuration
+def bintrayPublisherConfig = [
+        dataFile: System.getProperty("user.home") + "/bintray/data.txt",
+        repo: "libs",
+        licenses: ["MIT"],
+        vcsUrl: "https://github.com/appscharles/libs_databaser.git"
+]
+
+// Define tasks
+task bintrayDeploy(type: Jar, dependsOn: ['clean', 'assemble', 'build', 'bintrayUpload'], group: 'project') {
+    outputs.upToDateWhen { false }
+    assemble.shouldRunAfter clean
+    build.shouldRunAfter assemble
+    bintrayUpload.shouldRunAfter build
+}
+
+// Business BintrayPublisher
+String[] bintrayData = Files.lines(Paths.get(bintrayPublisherConfig.dataFile)).toArray()
+
+bintray {
+    user = bintrayData[0]
+    key = bintrayData[1]
+    publications = ['core']
+    pkg {
+        repo = bintrayPublisherConfig.repo
+        name = project.name
+        userOrg = bintrayData[0]
+        licenses = bintrayPublisherConfig.licenses
+        vcsUrl = bintrayPublisherConfig.vcsUrl
+        publish = true
+    }
+}
+
+publishing {
+    publications {
+        core(MavenPublication) {
+            from components.java
+            groupId project.group
+            artifactId project.name
+            version project.version
+        }
+    }
+}
