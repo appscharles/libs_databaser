@@ -42,3 +42,8 @@ apply from: 'gradle/MigrationGenerator.gradle'
 Configure properties in defined `databaserConfig` in `MigrationGenerator.gradle` file.
 
 Generate migration by task 'generateMigration'.
+
+# Test this library
+For IDE Intelij IDEA, add plugin `Ebean 11.x Enhancement`. This plugin
+must be installed for tests to run from IDE Intelij IDEA. For activate plugin, check
+`Ebean 11.x+ Enhancement` in menu `Build`.

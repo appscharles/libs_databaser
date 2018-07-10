@@ -38,7 +38,11 @@ def databaserConfig = [
 
 // Define tasks
 task generateMigration(type:JavaExec, group:'project') {
-    args = ['--platform=' + databaserConfig.platform, '--toDir=' + databaserConfig.toDir]
+    args = [
+            '--platform=' + databaserConfig.platform,
+            '--toDir=' + databaserConfig.toDir,
+            '--version=' + project.getVersion().toString()
+    ]
     classpath sourceSets.main.runtimeClasspath
     main  = 'com.appscharles.libs.databaser.gradles.MigrationGeneratorGradle'
 

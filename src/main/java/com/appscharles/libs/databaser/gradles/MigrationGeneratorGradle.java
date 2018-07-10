@@ -20,6 +20,7 @@ public class MigrationGeneratorGradle {
 
     public static void main(String[] args) throws DatabaserException {
        MigrationGenerator migrationGenerator = new MigrationGenerator(
+               SimpleArgsExtractor.getArg("version", args),
                 Platform.valueOf(SimpleArgsExtractor.getArg("platform", args)),
                 new File(SimpleArgsExtractor.getArg("toDir", args)));
         migrationGenerator.generate();

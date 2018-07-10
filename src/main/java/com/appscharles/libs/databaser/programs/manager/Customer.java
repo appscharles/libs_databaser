@@ -28,7 +28,6 @@ public class Customer extends Model {
     private Date registered;
 
     private String comments;
-
     /**
      * Getter for property 'id'.
      *

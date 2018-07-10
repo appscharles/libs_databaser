@@ -1,17 +1,22 @@
 package com.appscharles.libs.databaser.generators;
 
+import com.appscharles.libs.databaser.configurators.FlyWayDBMigratorConfigurator;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
-import com.appscharles.libs.ioer.services.DirDeleter;
 import io.ebean.annotation.Platform;
 import io.ebean.dbmigration.DbMigration;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * The type Migration generator.
  */
 public class MigrationGenerator implements IMigrationGenerate {
+
+
+    String version;
 
     private Platform platform;
 
@@ -19,18 +24,17 @@ public class MigrationGenerator implements IMigrationGenerate {
 
     private File toDir;
 
-    public MigrationGenerator(Platform platform) {
-        this(platform, null);
-    }
-
     /**
      * Instantiates a new Migration generator.
      *
      * @param platform the platform
      */
-    public MigrationGenerator(Platform platform, File toDir) {
+    public MigrationGenerator(String version, Platform platform, File toDir) {
+        this.version = version;
         this.platform = platform;
+        System.setProperty("ddl.migration.name", version + "_" + new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()));
         this.dBMigration = DbMigration.create();
+        this.dBMigration.setServerConfig(new FlyWayDBMigratorConfigurator().config());
         this.dBMigration.setPlatform(this.platform);
         this.toDir = toDir;
 
@@ -38,18 +42,14 @@ public class MigrationGenerator implements IMigrationGenerate {
 
     @Override
     public void generate() throws DatabaserException {
-       try {
-           if (this.toDir != null){
-               this.dBMigration.setPathToResources(this.toDir.getAbsolutePath());
-           }
-           this.dBMigration.generateMigration();
-           if (this.toDir != null){
-               DirDeleter.delete(new File(this.toDir.getAbsolutePath(), "dbmigration/model"));
-           }
-
-       } catch (IOException e) {
-           throw new DatabaserException(e);
-       }
+        try {
+            if (this.toDir != null) {
+                this.dBMigration.setPathToResources(this.toDir.getAbsolutePath());
+            }
+            this.dBMigration.generateMigration();
+        } catch (IOException e) {
+            throw new DatabaserException(e);
+        }
     }
 
     /**

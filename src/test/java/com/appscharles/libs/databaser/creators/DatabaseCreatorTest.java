@@ -28,7 +28,7 @@ public class DatabaseCreatorTest extends TestCase {
         File dbDir = this.temp.newFolder("db Dir");
         IServer server = ServerH2Builder.create(3452,  dbDir).build();
         server.start();
-        IDatabaseCreator creator = new DatabaseCreator("tcp://localhost:3452/myDB", "root", "secret");
+        IDatabaseCreator creator = new DatabaseH2Creator("tcp://localhost:3452/myDB", "root", "secret");
         creator.create();
         Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost:3452/myDB", "root", "secret");
         connection.close();
@@ -39,7 +39,7 @@ public class DatabaseCreatorTest extends TestCase {
         File dbDir = this.temp.newFolder("db Dir");
         IServer server = ServerH2Builder.create(3456, dbDir).build();
         server.start();
-        IDatabaseCreator creator = new DatabaseCreator("tcp://localhost:3456/myDB", "root", "secret");
+        IDatabaseCreator creator = new DatabaseH2Creator("tcp://localhost:3456/myDB", "root", "secret");
         creator.create();
         creator.create();
     }

@@ -1,7 +1,7 @@
 package com.appscharles.libs.databaser.programs.manager;
 
 import com.appscharles.libs.databaser.builders.ServerH2Builder;
-import com.appscharles.libs.databaser.creators.DatabaseCreator;
+import com.appscharles.libs.databaser.creators.DatabaseH2Creator;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import com.appscharles.libs.databaser.servers.IServer;
 import com.appscharles.libs.logger.configurators.Log4jConsole;
@@ -36,7 +36,7 @@ public class ManagerProgram {
           Integer port = 18574;
             IServer server = ServerH2Builder.create(port, Files.createTempDirectory("customers_").toFile()).build();
             server.start();
-            DatabaseCreator creator = new DatabaseCreator("tcp://localhost:"+port+"/myDB", "root", "secret");
+            DatabaseH2Creator creator = new DatabaseH2Creator("tcp://localhost:"+port+"/myDB", "root", "secret");
 
             creator.create();
 

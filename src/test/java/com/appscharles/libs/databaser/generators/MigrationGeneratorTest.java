@@ -1,5 +1,6 @@
 package com.appscharles.libs.databaser.generators;
 
+import com.appscharles.libs.databaser.TestCase;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import com.appscharles.libs.ioer.services.DirReader;
 import io.ebean.annotation.Platform;
@@ -18,14 +19,16 @@ import java.io.IOException;
  *
  * @author Karol Golec karol.itgolo@gmail.com
  */
-public class MigrationGeneratorTest {
+public class MigrationGeneratorTest extends TestCase {
 
     @Test
     public void shouldGenerateSQLMigrations() throws DatabaserException, IOException {
+        File temp = this.temp.newFolder("shouldGenerateSQLMigrations");
         MigrationGenerator migrationGenerator = new MigrationGenerator(
+                "1.0.0.0",
                 Platform.H2,
-                new File("src/main/java/com/appscharles/libs/databaser/programs/manager"));
+                temp);
         migrationGenerator.generate();
-        Assert.assertTrue(DirReader.getFiles(new File("src/main/java/com/appscharles/libs/databaser/programs/manager/dbmigration")).size() > 1);
+        Assert.assertTrue(DirReader.getFiles(new File(temp, "dbmigration")).size() > 1);
     }
 }

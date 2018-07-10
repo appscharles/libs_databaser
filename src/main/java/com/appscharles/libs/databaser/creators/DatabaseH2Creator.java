@@ -10,7 +10,7 @@ import java.sql.SQLException;
 /**
  * The type Database creator.
  */
-public class DatabaseCreator implements IDatabaseCreator {
+public class DatabaseH2Creator implements IDatabaseCreator {
 
     private final String databaseUrl;
 
@@ -25,7 +25,7 @@ public class DatabaseCreator implements IDatabaseCreator {
      * @param username    the username
      * @param password    the password
      */
-    public DatabaseCreator(String databaseUrl, String username, String password) {
+    public DatabaseH2Creator(String databaseUrl, String username, String password) {
         this.databaseUrl = databaseUrl;
         this.username = username;
         this.password = password;
