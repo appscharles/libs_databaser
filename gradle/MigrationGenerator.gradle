@@ -1,40 +1,45 @@
 /****************************************************************************
  ***************************** IMPLEMENTATION *******************************
- 1. Add classpath to `build.gradle`
+ 1. Add to project file `build.gradle`:
 
  buildscript {
     repositories {
-        maven {
-            url 'http://dl.bintray.com/appscharles/libs'
-        }
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.appscharles.libs:databaser:1.+'
+        classpath "io.ebean:ebean-gradle-plugin:11.5.3"
+    }
+ }
+ apply plugin: 'io.ebean'
+
+ 2. Add repository to dependencies in `build.gradle`
+ repositories {
+    maven {
+        url 'http://dl.bintray.com/appscharles/libs'
     }
  }
 
- 2. Apply plugin in `build.gradle`
+ 2. Add dependency to `build.gradle`
+ compile group: 'com.appscharles.libs', name: 'databaser', version: '1.+'
 
- apply plugin: 'com.appscharles.libs.databaser'
+ 3. Apply this file to `build.gradle` by:
+ apply from: 'gradle/MigrationGenerator.gradle'
 
- 3. Configuration Databaser in below defined 'databaserConfig'
+ 4. Configuration Databaser in below defined 'databaserConfig'
 
- 4. Generate migration by task 'generateMigration'
+ 5. Generate migration by task 'generateMigration'
  ****************************************************************************/
 
 // Configuration
 def databaserConfig = [
         toDir: "${projectDir}/src/main/java/com/appscharles/libs/databaser/programs/manager",
-        dependsOnClean: true,
         platform: "H2"
 ]
 
-generateMigration {
-    toDir = databaserConfig.to_dir
-    dependsOnClean = databaserConfig.dependsOnClean
-    platform = databaserConfig.platform
-}
+// Define tasks
+task generateMigration(type:JavaExec, group:'project') {
+    args = ['--platform=' + databaserConfig.platform, '--toDir=' + databaserConfig.toDir]
+    classpath sourceSets.main.runtimeClasspath
+    main  = 'com.appscharles.libs.databaser.gradles.MigrationGeneratorGradle'
 
-configure(generateMigration) {
-    group = 'project'
 }

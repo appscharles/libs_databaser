@@ -44,7 +44,7 @@ public class MigrationGenerator implements IMigrationGenerate {
            }
            this.dBMigration.generateMigration();
            if (this.toDir != null){
-               DirDeleter.delete(new File(this.toDir, "dbmigration/model"));
+               DirDeleter.delete(new File(this.toDir.getAbsolutePath(), "dbmigration/model"));
            }
 
        } catch (IOException e) {

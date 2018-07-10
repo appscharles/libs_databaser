@@ -40,7 +40,6 @@ public class ManagerProgram {
 
             creator.create();
 
-
             Customer customer = new Customer();
             customer.setName("Charles");
             customer.save();
