@@ -9,7 +9,7 @@ import java.io.File;
 /**
  * The type Abstract h 2 server.
  */
-public abstract class AbstractH2Server implements IServer, IAllowRemoteDisableable {
+public abstract class AbstractServerH2 implements IServer, IAllowRemoteDisableable {
 
     /**
      * The Server factory.
@@ -38,7 +38,7 @@ public abstract class AbstractH2Server implements IServer, IAllowRemoteDisableab
      * @param dBName the d b name
      * @param dBDir  the d b dir
      */
-    public AbstractH2Server(Integer port, File dBDir) {
+    public AbstractServerH2(Integer port, File dBDir) {
         this.port = port;
         this.dBDir = dBDir;
     }
@@ -48,7 +48,7 @@ public abstract class AbstractH2Server implements IServer, IAllowRemoteDisableab
      *
      * @return the h 2 server
      */
-    public AbstractH2Server disableAllowRemote(){
+    public AbstractServerH2 disableAllowRemote(){
         this.serverFactory.disableAllowRemote();
         return this;
     }

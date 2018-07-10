@@ -1,11 +1,18 @@
 package com.appscharles.libs.databaser;
 
+import com.appscharles.libs.databaser.builders.ServerH2Builder;
+import com.appscharles.libs.databaser.creators.DatabaseCreator;
+import com.appscharles.libs.databaser.exceptions.DatabaserException;
+import com.appscharles.libs.databaser.servers.IServer;
 import com.appscharles.libs.logger.configurators.Log4j2Console;
 import com.appscharles.libs.logger.configurators.Log4jConsole;
 import org.apache.logging.log4j.Level;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * IDE Editor: IntelliJ IDEA
@@ -26,4 +33,12 @@ public class TestCase {
 
     @Rule
     public TemporaryFolder temp = new TemporaryFolder();
+
+    public IServer createDefaultEbean(Integer port, File dBDir) throws IOException, DatabaserException {
+        IServer server = ServerH2Builder.create(port,dBDir).build();
+        server.start();
+        DatabaseCreator creator = new DatabaseCreator("tcp://localhost:"+port+"/myDB", "root", "secret");
+        creator.create();
+        return server;
+    }
 }

@@ -34,7 +34,7 @@ public class ServerFactory extends AbstractServerFactory {
             this.addArgument("-tcpPort");
             this.addArgument(String.valueOf(this.port));
             this.addArgument("-baseDir");
-            this.addArgument(this.dBDir.getAbsolutePath() + File.separator + this.dBName);
+            this.addArgument(this.dBDir.getAbsolutePath() + File.separator);
             return Server.createTcpServer(getPrepareArguments());
         } catch (SQLException e) {
             throw new DatabaserException(e);

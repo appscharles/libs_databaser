@@ -1,6 +1,6 @@
 package com.appscharles.libs.databaser.builders;
 
-import com.appscharles.libs.databaser.servers.H2Server;
+import com.appscharles.libs.databaser.servers.ServerH2;
 import com.appscharles.libs.databaser.servers.IServer;
 
 import java.io.File;
@@ -8,13 +8,13 @@ import java.io.File;
 /**
  * The type H 2 server builder.
  */
-public class H2ServerBuilder {
+public class ServerH2Builder {
 
     private Integer port;
 
     private File dBDir;
 
-    private H2ServerBuilder(){
+    private ServerH2Builder(){
 
     }
 
@@ -26,8 +26,8 @@ public class H2ServerBuilder {
      * @param dBDir  the d b dir
      * @return the h 2 server builder
      */
-    public static H2ServerBuilder create(Integer port,File dBDir){
-        H2ServerBuilder instance = new H2ServerBuilder();
+    public static ServerH2Builder create(Integer port, File dBDir){
+        ServerH2Builder instance = new ServerH2Builder();
         instance.port = port;
         instance.dBDir = dBDir;
         return instance;
@@ -39,6 +39,6 @@ public class H2ServerBuilder {
      * @return the server
      */
     public IServer build(){
-        return new H2Server(this.port, this.dBDir);
+        return new ServerH2(this.port, this.dBDir);
     }
 }

@@ -10,8 +10,6 @@ import java.util.List;
  */
 public abstract class AbstractServerFactory implements IServerFactory, IPortable, IArgumentable {
 
-    protected String dBName;
-
     /**
      * The Port.
      */

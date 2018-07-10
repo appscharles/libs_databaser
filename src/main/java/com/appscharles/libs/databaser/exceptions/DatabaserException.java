@@ -4,6 +4,11 @@ package com.appscharles.libs.databaser.exceptions;
  * The type Databaser exception.
  */
 public class DatabaserException extends Exception {
+
+    // Database not created, because it is exist. [0001-000]
+    // Can not connection to database. [0002-000]
+    // Database is not exists [0003-001]
+
     /**
      * The Serial version uid.
      */

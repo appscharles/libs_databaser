@@ -1,8 +1,18 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'io.ebean:ebean-gradle-plugin:11.5.3'
+    }
+}
 plugins {
     id 'java'
     id 'maven-publish'
     id 'com.jfrog.bintray' version '1.8.3'
 }
+
+apply plugin: 'io.ebean'
 
 group 'com.appscharles.libs'
 version '1.0.0.0-dev0'
@@ -21,13 +31,17 @@ repositories {
 }
 
 dependencies {
+    compile group: 'org.flywaydb', name: 'flyway-core', version: '5.1.4'
     compile group: 'com.h2database', name: 'h2', version: '1.4.197'
     compile group: 'io.ebean', name: 'ebean', version: '11.18.4'
     compile group: 'com.appscharles.libs', name: 'dialoger', version: '1.0.0.0-dev1'
     compile group: 'com.appscharles.libs', name: 'processer', version: '1.0.0.0-dev5'
+    compile group: 'com.appscharles.libs', name: 'ioer', version: '1.0.0.0-dev16'
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.8.0-beta2'
-    testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.8.0-beta2'
-    testCompile group: 'com.appscharles.libs', name: 'logger', version: '1.0.0.0-dev19'
-    testCompile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.0'
+    compile group: 'com.appscharles.libs', name: 'logger', version: '1.0.0.0-dev19'
+    compile gradleApi()
+    testCompile group: 'com.appscharles.libs', name: 'jarer', version: '1.0.0.0-dev10'
+   // testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.8.0-beta2'
+   // testCompile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.0'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

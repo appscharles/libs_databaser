@@ -1,0 +1,40 @@
+/****************************************************************************
+ ***************************** IMPLEMENTATION *******************************
+ 1. Add classpath to `build.gradle`
+
+ buildscript {
+    repositories {
+        maven {
+            url 'http://dl.bintray.com/appscharles/libs'
+        }
+    }
+    dependencies {
+        classpath 'com.appscharles.libs:databaser:1.+'
+    }
+ }
+
+ 2. Apply plugin in `build.gradle`
+
+ apply plugin: 'com.appscharles.libs.databaser'
+
+ 3. Configuration Databaser in below defined 'databaserConfig'
+
+ 4. Generate migration by task 'generateMigration'
+ ****************************************************************************/
+
+// Configuration
+def databaserConfig = [
+        toDir: "${projectDir}/src/main/java/com/appscharles/libs/databaser/programs/manager",
+        dependsOnClean: true,
+        platform: "H2"
+]
+
+generateMigration {
+    toDir = databaserConfig.to_dir
+    dependsOnClean = databaserConfig.dependsOnClean
+    platform = databaserConfig.platform
+}
+
+configure(generateMigration) {
+    group = 'project'
+}

@@ -19,7 +19,7 @@ public class DatabaseExistValidator {
         try (Connection connection = DriverManager.getConnection("jdbc:h2:" + databaseUrl + ";IFEXISTS=TRUE")) {
             return true;
         } catch (SQLException e) {
-            if (e.getMessage().contains("90013-")){
+            if (e.getMessage().contains("[90013-")){
                 return false;
             }
             return true;
