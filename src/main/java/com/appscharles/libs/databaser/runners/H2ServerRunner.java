@@ -37,7 +37,7 @@ public class H2ServerRunner extends AbstractServerRunner {
             creator.setServerDir(this.serverDir);
             creator.create();
             String command = "java -jar " + new File(this.serverDir, H2ServerConfigurator.getH2ServerFileName()).getAbsolutePath()
-                    + " --port=" + this.port;
+                    + " --port=" + this.port + " --serverDir=" + this.serverDir.getAbsolutePath();
             if (this.autostart){
                 AutostartCreator.create(H2ServerConfigurator.getAutostartRegKey(),
                         new File(this.serverDir, H2ServerConfigurator.getAutostartBatFileName()),

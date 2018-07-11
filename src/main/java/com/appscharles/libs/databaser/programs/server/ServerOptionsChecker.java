@@ -16,6 +16,8 @@ public class ServerOptionsChecker {
     public static void check(ServerOptions options) throws DatabaserException{
         if (options.port.isEmpty()){
             throw new DatabaserException("Argument 'port' is empty.");
+        } else  if (options.serverDir.isEmpty()){
+            throw new DatabaserException("Argument 'serverDir' is empty.");
         }
     }
 }

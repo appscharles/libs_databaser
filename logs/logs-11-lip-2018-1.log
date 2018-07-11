@@ -1,1 +1,0 @@
-ERROR 2018-07-11 15:52:08,476 [main] com.appscharles.libs.databaser.programs.server.Server.main(Server.java:61) com.appscharles.libs.databaser.exceptions.DatabaserException: Custom 0

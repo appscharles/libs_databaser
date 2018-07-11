@@ -1,1 +1,0 @@
-ERROR 2018-07-11 15:52:24,143 [main] com.appscharles.libs.databaser.programs.server.Server.main(Server.java:57) com.appscharles.libs.databaser.exceptions.DatabaserException: Argument 'port' is empty.

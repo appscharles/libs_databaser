@@ -41,10 +41,12 @@ public class Server {
      */
     public static void main(String[] args) throws DatabaserException {
         Boolean testMode = false;
+        File serverDir = new File(".");
         try {
             ServerOptions options = ArgsParser.parse(args, ServerOptions.class);
             ServerOptionsChecker.check(options);
             testMode = Boolean.valueOf(options.testMode);
+            serverDir = new File(options.serverDir);
             IServer server = ServerH2Builder.create(Integer.valueOf(options.port), new File(".")).build();
             server.start();
             if (Boolean.valueOf(options.testMode)) {
@@ -53,7 +55,7 @@ public class Server {
                 System.exit(0);
             }
         } catch (OptionsParsingException | DatabaserException | InterruptedException e) {
-            LoggerConfigurator.config(new Log4j2ConsoleFileRoller(Level.INFO).setLogsDir(new File(".", "logs")));
+            LoggerConfigurator.config(new Log4j2ConsoleFileRoller(Level.INFO).setLogsDir(new File(serverDir, "logs")));
             Logger logger = LogManager.getLogger(Server.class);
             logger.error(e);
             if (testMode == false){

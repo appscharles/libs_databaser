@@ -11,6 +11,15 @@ public class ServerOptions extends OptionsBase {
     /**
      * The Port.
      */
+    @Option(name = "serverDir",
+            abbrev = 'd',
+            help = "Server directory.",
+            defaultValue = "")
+    public String serverDir;
+
+    /**
+     * The Port.
+     */
     @Option(name = "port",
             abbrev = 'p',
             help = "Port.",
