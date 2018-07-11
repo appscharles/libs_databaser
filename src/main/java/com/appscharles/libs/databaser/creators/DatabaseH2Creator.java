@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * The type Database creator.
+ * The type Database h 2 creator.
  */
 public class DatabaseH2Creator implements IDatabaseCreator {
 
@@ -19,7 +19,7 @@ public class DatabaseH2Creator implements IDatabaseCreator {
     private final String password;
 
     /**
-     * Instantiates a new Database creator.
+     * Instantiates a new Database h 2 creator.
      *
      * @param databaseUrl the database url
      * @param username    the username

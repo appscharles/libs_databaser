@@ -7,9 +7,9 @@ import org.h2.tools.Server;
 import java.io.File;
 
 /**
- * The type Abstract h 2 server.
+ * The type H 2 abstract server.
  */
-public abstract class AbstractServerH2 implements IServer, IAllowRemoteDisableable {
+public abstract class H2AbstractServer implements IServer, IAllowRemoteDisableable {
 
     /**
      * The Server factory.
@@ -32,23 +32,17 @@ public abstract class AbstractServerH2 implements IServer, IAllowRemoteDisableab
     protected File dBDir;
 
     /**
-     * Instantiates a new Abstract h 2 server.
+     * Instantiates a new H 2 abstract server.
      *
-     * @param port   the port
-     * @param dBName the d b name
-     * @param dBDir  the d b dir
+     * @param port  the port
+     * @param dBDir the d b dir
      */
-    public AbstractServerH2(Integer port, File dBDir) {
+    public H2AbstractServer(Integer port, File dBDir) {
         this.port = port;
         this.dBDir = dBDir;
     }
 
-    /**
-     * Disable allow remote h 2 server.
-     *
-     * @return the h 2 server
-     */
-    public AbstractServerH2 disableAllowRemote(){
+    public H2AbstractServer disableAllowRemote(){
         this.serverFactory.disableAllowRemote();
         return this;
     }

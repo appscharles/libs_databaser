@@ -3,15 +3,16 @@ package com.appscharles.libs.databaser.factories;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 07.07.2018
- * Time: 11:11
- * Project name: databaser
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The interface Server factory.
  */
 public interface IServerFactory extends IAllowRemoteDisableable {
 
+    /**
+     * Build t.
+     *
+     * @param <T> the type parameter
+     * @return the t
+     * @throws DatabaserException the databaser exception
+     */
     <T> T build() throws DatabaserException;
 }

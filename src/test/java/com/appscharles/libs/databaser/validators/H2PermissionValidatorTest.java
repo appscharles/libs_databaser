@@ -10,9 +10,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 /**
  * IDE Editor: IntelliJ IDEA
@@ -26,14 +23,12 @@ import java.sql.SQLException;
 public class H2PermissionValidatorTest extends TestCase {
 
     @Test
-    public void shouldAccessToDatabase() throws IOException, DatabaserException, SQLException {
+    public void shouldAccessToDatabase() throws IOException, DatabaserException {
         File dBDir = this.temp.newFolder("dBDir_shouldAccessToDatabase");
         IServer server = ServerH2Builder.create(13523, dBDir).build();
         server.start();
         DatabaseH2Creator creator = new DatabaseH2Creator("tcp://localhost:"+13523+"/myDB", "root", "secret");
         creator.create();
-        Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost:13523/myDB", "root", "secret");
-        connection.close();
         H2PermissionValidator validator = new H2PermissionValidator("tcp://localhost:"+13523+"/myDB", "root"  ,"secret");
         Assert.assertTrue(validator.isAccess());
         H2PermissionValidator validator2 = new H2PermissionValidator("tcp://localhost:"+13523+"/myDB", "root"  ,"secret2");

@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * The type Abstract h 2 server factory.
+ * The type Abstract server factory.
  */
 public abstract class AbstractServerFactory implements IServerFactory, IPortable, IArgumentable {
 
@@ -16,7 +16,7 @@ public abstract class AbstractServerFactory implements IServerFactory, IPortable
     protected Integer port;
 
     /**
-     * The Db dir.
+     * The D b dir.
      */
     protected File dBDir;
 
@@ -31,7 +31,7 @@ public abstract class AbstractServerFactory implements IServerFactory, IPortable
     protected List<String> arguments;
 
     /**
-     * Instantiates a new Abstract h 2 server factory.
+     * Instantiates a new Abstract server factory.
      */
     protected AbstractServerFactory(){
         this.arguments = new ArrayList<>();

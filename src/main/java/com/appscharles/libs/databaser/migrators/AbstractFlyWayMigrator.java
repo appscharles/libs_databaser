@@ -1,24 +1,27 @@
 package com.appscharles.libs.databaser.migrators;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 10.07.2018
- * Time: 15:58
- * Project name: databaser
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type Abstract fly way migrator.
  */
 public abstract class AbstractFlyWayMigrator implements IFlyWayMigrator {
 
+    /**
+     * The Database url.
+     */
     protected String databaseUrl;
 
+    /**
+     * The Username.
+     */
     protected String username;
 
+    /**
+     * The Password.
+     */
     protected String password;
 
     /**
-     * Instantiates a new Database creator.
+     * Instantiates a new Abstract fly way migrator.
      *
      * @param databaseUrl the database url
      * @param username    the username

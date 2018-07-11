@@ -1,15 +1,14 @@
 package com.appscharles.libs.databaser.validators;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 10.07.2018
- * Time: 16:24
- * Project name: databaser
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The interface Migration validator.
  */
 public interface IMigrationValidator {
 
+    /**
+     * Is valid boolean.
+     *
+     * @return the boolean
+     */
     Boolean isValid();
 }

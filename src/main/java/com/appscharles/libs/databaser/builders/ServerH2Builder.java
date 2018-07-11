@@ -1,12 +1,12 @@
 package com.appscharles.libs.databaser.builders;
 
-import com.appscharles.libs.databaser.servers.ServerH2;
+import com.appscharles.libs.databaser.servers.H2Server;
 import com.appscharles.libs.databaser.servers.IServer;
 
 import java.io.File;
 
 /**
- * The type H 2 server builder.
+ * The type Server h 2 builder.
  */
 public class ServerH2Builder {
 
@@ -19,12 +19,11 @@ public class ServerH2Builder {
     }
 
     /**
-     * Create h 2 server builder.
+     * Create server h 2 builder.
      *
-     * @param port   the port
-     * @param dBName the d b name
-     * @param dBDir  the d b dir
-     * @return the h 2 server builder
+     * @param port  the port
+     * @param dBDir the d b dir
+     * @return the server h 2 builder
      */
     public static ServerH2Builder create(Integer port, File dBDir){
         ServerH2Builder instance = new ServerH2Builder();
@@ -39,6 +38,6 @@ public class ServerH2Builder {
      * @return the server
      */
     public IServer build(){
-        return new ServerH2(this.port, this.dBDir);
+        return new H2Server(this.port, this.dBDir);
     }
 }

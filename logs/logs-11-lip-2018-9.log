@@ -1,0 +1,2 @@
+ERROR 2018-07-11 16:35:03,131 [main] com.appscharles.libs.databaser.programs.server.Server.main(Server.java:57) com.appscharles.libs.databaser.exceptions.DatabaserException: org.h2.jdbc.JdbcSQLException: B³¹d podczas otwierania portu "3429" (mo¿e byæ w u¿yciu), b³¹d: "java.net.BindException: Address already in use: JVM_Bind"
+Exception opening port "3429" (port may be in use), cause: "java.net.BindException: Address already in use: JVM_Bind" [90061-197]

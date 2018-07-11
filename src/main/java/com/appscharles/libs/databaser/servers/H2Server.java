@@ -10,7 +10,7 @@ import java.sql.SQLException;
 /**
  * The type H 2 server.
  */
-public class ServerH2 extends AbstractServerH2 {
+public class H2Server extends H2AbstractServer {
 
     /**
      * Instantiates a new H 2 server.
@@ -18,7 +18,7 @@ public class ServerH2 extends AbstractServerH2 {
      * @param port  the port
      * @param dBDir the d b dir
      */
-    public ServerH2(Integer port, File dBDir) {
+    public H2Server(Integer port, File dBDir) {
         super(port, dBDir);
         this.serverFactory = ServerFactory.create(this.port,this.dBDir);
     }

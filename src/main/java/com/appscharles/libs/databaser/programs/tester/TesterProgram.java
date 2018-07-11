@@ -1,4 +1,4 @@
-package com.appscharles.libs.databaser.programs.manager;
+package com.appscharles.libs.databaser.programs.tester;
 
 import com.appscharles.libs.databaser.builders.ServerH2Builder;
 import com.appscharles.libs.databaser.creators.DatabaseH2Creator;
@@ -17,16 +17,16 @@ import java.nio.file.Files;
 import java.util.ServiceLoader;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 09.07.2018
- * Time: 11:57
- * Project name: databaser
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type Tester program.
  */
-public class ManagerProgram {
+public class TesterProgram {
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws DatabaserException the databaser exception
+     */
     public static void main(String[] args) throws DatabaserException {
         try {
             //Class codecClass = Class.forName("org.apache.lucene.codecs.Codec")
@@ -50,6 +50,12 @@ public class ManagerProgram {
         }
     }
 
+    /**
+     * Add path.
+     *
+     * @param url the url
+     * @throws Exception the exception
+     */
     public static void addPath(String url) throws Exception {
         ClassLoader prevCl = Thread.currentThread().getContextClassLoader();
 

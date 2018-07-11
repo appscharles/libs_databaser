@@ -16,6 +16,9 @@ import java.util.Date;
 public class MigrationGenerator implements IMigrationGenerate {
 
 
+    /**
+     * The Version.
+     */
     String version;
 
     private Platform platform;
@@ -27,7 +30,9 @@ public class MigrationGenerator implements IMigrationGenerate {
     /**
      * Instantiates a new Migration generator.
      *
+     * @param version  the version
      * @param platform the platform
+     * @param toDir    the to dir
      */
     public MigrationGenerator(String version, Platform platform, File toDir) {
         this.version = version;

@@ -30,7 +30,7 @@ public class FlyWayMigratorTest extends TestCase {
         DatabaseH2Creator creator = new DatabaseH2Creator("tcp://localhost:"+12323+"/myDB", "root", "secret");
         creator.create();
         H2FlyWayMigrator migrator = new H2FlyWayMigrator("tcp://localhost:"+12323+"/myDB", "root"  ,"secret",
-                "com/appscharles/libs/databaser/programs/manager/dbmigration");
+                "com/appscharles/libs/databaser/programs/tester/dbmigration");
         migrator.migrate();
     }
 
@@ -40,7 +40,7 @@ public class FlyWayMigratorTest extends TestCase {
         IServer server = ServerH2Builder.create(12333, dBDir).build();
         server.start();
         H2FlyWayMigrator migrator = new H2FlyWayMigrator("tcp://localhost:"+12333+"/myDB", "root"  ,"secret",
-                "com/appscharles/libs/databaser/programs/manager/dbmigration");
+                "com/appscharles/libs/databaser/programs/tester/dbmigration");
         migrator.migrate();
     }
 }

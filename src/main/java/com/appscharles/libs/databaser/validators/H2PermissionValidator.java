@@ -7,19 +7,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 10.07.2018
- * Time: 17:13
- * Project name: databaser
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type H 2 permission validator.
  */
 public class H2PermissionValidator extends AbstractPermissionValidator {
 
 
     /**
-     * Instantiates a new Database creator.
+     * Instantiates a new H 2 permission validator.
      *
      * @param databaseUrl the database url
      * @param username    the username

@@ -31,10 +31,10 @@ public class H2MigrationValidatorTest extends TestCase {
         DatabaseH2Creator creator = new DatabaseH2Creator("tcp://localhost:"+12423+"/myDB", "root", "secret");
         creator.create();
         H2FlyWayMigrator migrator = new H2FlyWayMigrator("tcp://localhost:"+12423+"/myDB", "root"  ,"secret",
-                "com/appscharles/libs/databaser/programs/manager/dbmigration");
+                "com/appscharles/libs/databaser/programs/tester/dbmigration");
         migrator.migrate();
         H2MigrationValidator validator = new H2MigrationValidator("tcp://localhost:"+12423+"/myDB", "root"  ,"secret",
-                "com/appscharles/libs/databaser/programs/manager/dbmigration");
+                "com/appscharles/libs/databaser/programs/tester/dbmigration");
         Assert.assertTrue(validator.isValid());
         server.stop();
     }
@@ -47,7 +47,7 @@ public class H2MigrationValidatorTest extends TestCase {
         DatabaseH2Creator creator = new DatabaseH2Creator("tcp://localhost:"+12523+"/myDB", "root", "secret");
         creator.create();
         H2MigrationValidator validator = new H2MigrationValidator("tcp://localhost:"+12523+"/myDB", "root"  ,"secret",
-                "com/appscharles/libs/databaser/programs/manager/dbmigration");
+                "com/appscharles/libs/databaser/programs/tester/dbmigration");
         Assert.assertFalse("Not found migrations? Maybe run `generateMigration` gradle task.", validator.isValid());
         server.stop();
     }

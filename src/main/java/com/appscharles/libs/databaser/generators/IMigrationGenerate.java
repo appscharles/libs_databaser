@@ -3,15 +3,14 @@ package com.appscharles.libs.databaser.generators;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 10.07.2018
- * Time: 11:19
- * Project name: databaser
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The interface Migration generate.
  */
 public interface IMigrationGenerate {
 
+    /**
+     * Generate.
+     *
+     * @throws DatabaserException the databaser exception
+     */
     void generate() throws DatabaserException;
 }

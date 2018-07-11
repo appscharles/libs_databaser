@@ -4,23 +4,19 @@ import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import org.flywaydb.core.Flyway;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 10.07.2018
- * Time: 15:50
- * Project name: databaser
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type H 2 fly way migrator.
  */
 public class H2FlyWayMigrator extends AbstractFlyWayMigrator {
 
     private String resourceMigrationPath;
+
     /**
-     * Instantiates a new Database creator.
+     * Instantiates a new H 2 fly way migrator.
      *
-     * @param databaseUrl the database url
-     * @param username    the username
-     * @param password    the password
+     * @param databaseUrl           the database url
+     * @param username              the username
+     * @param password              the password
+     * @param resourceMigrationPath the resource migration path
      */
     public H2FlyWayMigrator(String databaseUrl, String username, String password, String resourceMigrationPath) {
         super(databaseUrl, username, password);

@@ -23,13 +23,6 @@ public class H2MigrationValidator extends AbstractMigrationValidator {
         this.resourceMigrationPath = resourceMigrationPath;
     }
 
-    /**
-     * Is valid boolean.
-     *
-     * @param resourceMigrationPath the resource migration path
-     * @param databaseUrl           the database url
-     * @return the boolean
-     */
     @Override
     public Boolean isValid(){
         Flyway flyway = new Flyway();

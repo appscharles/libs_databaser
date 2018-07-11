@@ -7,17 +7,16 @@ import java.io.File;
 import java.sql.SQLException;
 
 /**
- * The type H 2 server factory.
+ * The type Server factory.
  */
 public class ServerFactory extends AbstractServerFactory {
 
     /**
-     * Create h 2 server factory.
+     * Create server factory.
      *
-     * @param port   the port
-     * @param dBName the d b name
-     * @param dBDir  the d b dir
-     * @return the h 2 server factory
+     * @param port  the port
+     * @param dBDir the d b dir
+     * @return the server factory
      */
     public static ServerFactory create(Integer port, File dBDir) {
         ServerFactory instance = new ServerFactory();

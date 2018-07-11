@@ -5,16 +5,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 07.07.2018
- * Time: 16:54
- * Project name: databaser
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type Database exist validator.
  */
 public class DatabaseExistValidator {
 
+    /**
+     * Exist boolean.
+     *
+     * @param databaseUrl the database url
+     * @return the boolean
+     */
     public static Boolean exist(String databaseUrl) {
         try (Connection connection = DriverManager.getConnection("jdbc:h2:" + databaseUrl + ";IFEXISTS=TRUE")) {
             return true;

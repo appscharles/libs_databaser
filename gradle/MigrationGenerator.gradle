@@ -32,7 +32,7 @@
 
 // Configuration
 def databaserConfig = [
-        toDir: "${projectDir}/src/main/java/com/appscharles/libs/databaser/programs/manager",
+        toDir: "${projectDir}/src/main/java/com/appscharles/libs/databaser/programs/tester",
         platform: "H2"
 ]
 

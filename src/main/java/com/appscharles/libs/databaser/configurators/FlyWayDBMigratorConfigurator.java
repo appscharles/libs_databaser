@@ -5,13 +5,7 @@ import io.ebean.config.ServerConfig;
 import java.util.Properties;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 10.07.2018
- * Time: 16:19
- * Project name: databaser
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type Fly way db migrator configurator.
  */
 public class FlyWayDBMigratorConfigurator implements IDBMigratorConfigurator {
     @Override

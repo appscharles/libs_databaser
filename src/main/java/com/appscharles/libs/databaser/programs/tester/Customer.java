@@ -1,4 +1,4 @@
-package com.appscharles.libs.databaser.programs.manager;
+package com.appscharles.libs.databaser.programs.tester;
 
 import io.ebean.Model;
 
@@ -8,13 +8,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 09.07.2018
- * Time: 08:37
- * Project name: databaser
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type Customer.
  */
 @Entity
 @Table(name="customer")
@@ -28,64 +22,65 @@ public class Customer extends Model {
     private Date registered;
 
     private String comments;
+
     /**
-     * Getter for property 'id'.
+     * Gets id.
      *
-     * @return Value for property 'id'.
+     * @return the id
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Getter for property 'name'.
+     * Gets name.
      *
-     * @return Value for property 'name'.
+     * @return the name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Setter for property 'name'.
+     * Sets name.
      *
-     * @param name Value to set for property 'name'.
+     * @param name the name
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Getter for property 'registered'.
+     * Gets registered.
      *
-     * @return Value for property 'registered'.
+     * @return the registered
      */
     public Date getRegistered() {
         return registered;
     }
 
     /**
-     * Setter for property 'registered'.
+     * Sets registered.
      *
-     * @param registered Value to set for property 'registered'.
+     * @param registered the registered
      */
     public void setRegistered(Date registered) {
         this.registered = registered;
     }
 
     /**
-     * Getter for property 'comments'.
+     * Gets comments.
      *
-     * @return Value for property 'comments'.
+     * @return the comments
      */
     public String getComments() {
         return comments;
     }
 
     /**
-     * Setter for property 'comments'.
+     * Sets comments.
      *
-     * @param comments Value to set for property 'comments'.
+     * @param comments the comments
      */
     public void setComments(String comments) {
         this.comments = comments;
