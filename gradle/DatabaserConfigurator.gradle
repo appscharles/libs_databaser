@@ -1,0 +1,33 @@
+// Configuration
+def h2JarMoverConfig = [
+        toDir: "${projectDir}/src/main/java/com/appscharles/libs/databaser/jars",
+        version: "1.4.197"
+]
+
+configurations {
+    h2Resource
+}
+
+// Define tasks
+task h2JarToResource(type: Copy, group:'project'){
+    outputs.upToDateWhen { false }
+    into h2JarMoverConfig.toDir
+    from configurations.h2Resource
+    rename 'h2-' + h2JarMoverConfig.version + '.jar', 'h2database.jar'
+}
+
+task copyResourceForTest(type: Copy) {
+    test.mustRunAfter copyResourceForTest
+    from('out/production/classes')
+    into('build/classes/java/main')
+    exclude('*.class')
+}
+
+// Business
+sourceSets.main.output.resourcesDir = 'out/production/classes'
+
+dependencies {
+    h2Resource group: 'com.h2database', name: 'h2', version: h2JarMoverConfig.version
+}
+
+test.dependsOn copyResourceForTest

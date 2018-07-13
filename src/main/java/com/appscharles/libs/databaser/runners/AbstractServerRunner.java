@@ -7,40 +7,44 @@ import java.io.File;
  */
 public abstract class AbstractServerRunner implements IServerRunner {
 
+    private static final Long DEFAULT_TIMEOUT_SERVER_RUNNING = 20000L;
     /**
-     * The Port.
+     * The Tcp port.
      */
-    protected Integer port;
+    protected Integer tcpPort;
+
+    /**
+     * The Web port.
+     */
+    protected Integer webPort;
 
     /**
      * The Server dir.
      */
     protected File serverDir;
 
-
-    /**
-     * The Test mode.
-     */
-    protected Boolean testMode;
-
     /**
      * The Autostart.
      */
     protected Boolean autostart;
 
+    protected Long serverRunningTimeout;
+
+    protected Boolean runForce;
+
     /**
      * Instantiates a new Abstract server runner.
      *
-     * @param port      the port
+     * @param tcpPort   the tcp port
      * @param serverDir the server dir
      */
-    public AbstractServerRunner(Integer port, File serverDir) {
-        this.port = port;
+    public AbstractServerRunner(Integer tcpPort, File serverDir) {
+        this.tcpPort = tcpPort;
         this.serverDir = serverDir;
-        this.testMode = false;
         this.autostart = false;
+        this.serverRunningTimeout = DEFAULT_TIMEOUT_SERVER_RUNNING;
+        this.runForce = false;
     }
-
 
     @Override
     public void setServerDir(File serverDir) {
@@ -48,12 +52,22 @@ public abstract class AbstractServerRunner implements IServerRunner {
     }
 
     @Override
-    public void enableTestMode() {
-        this.testMode = true;
+    public void enableAutostart() {
+        this.autostart = true;
     }
 
     @Override
-    public void enableAutostart() {
-        this.autostart = true;
+    public void enableWebConsole(Integer webPort) {
+        this.webPort = webPort;
+    }
+
+    @Override
+    public void setServerRunningTimeout(Long mills) {
+        this.serverRunningTimeout = mills;
+    }
+
+    @Override
+    public void enableRunForce() {
+        this.runForce = true;
     }
 }

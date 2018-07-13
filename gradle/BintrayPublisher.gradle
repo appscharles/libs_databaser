@@ -23,9 +23,10 @@ def bintrayPublisherConfig = [
 ]
 
 // Define tasks
-task bintrayDeploy(type: Jar, dependsOn: ['clean', 'assemble', 'build', 'bintrayUpload'], group: 'project') {
+task bintrayDeploy(type: Jar, dependsOn: ['clean', 'h2JarToResource', 'assemble', 'build', 'bintrayUpload'], group: 'project') {
     outputs.upToDateWhen { false }
-    assemble.shouldRunAfter clean
+    h2JarToResource.shouldRunAfter clean
+    assemble.shouldRunAfter h2JarToResource
     build.shouldRunAfter assemble
     bintrayUpload.shouldRunAfter build
 }

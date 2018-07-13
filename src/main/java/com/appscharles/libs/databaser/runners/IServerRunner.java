@@ -2,35 +2,27 @@ package com.appscharles.libs.databaser.runners;
 
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 
-import java.io.File;
-
 /**
  * The interface Server runner.
  */
-public interface IServerRunner {
+public interface IServerRunner extends IWebConsolable, IServerDirectionable, IServerAutostartable, IServerTimeoutable, IServerRunForceable {
 
     /**
      * Run.
      *
      * @throws DatabaserException the databaser exception
      */
-    void run() throws DatabaserException;
+    void start() throws DatabaserException;
+
+    void stop() throws DatabaserException;
 
     /**
      * Sets server dir.
      *
      * @param serverDir the server dir
      */
-    void setServerDir(File serverDir);
 
 
-    /**
-     * Enable test mode.
-     */
-    void enableTestMode();
 
-    /**
-     * Enable autostart.
-     */
-    void enableAutostart();
+
 }

@@ -1,5 +1,7 @@
 package com.appscharles.libs.databaser.validators;
 
+import com.appscharles.libs.databaser.exceptions.DatabaserException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,15 +16,18 @@ public class DatabaseExistValidator {
      *
      * @param databaseUrl the database url
      * @return the boolean
+     * @throws DatabaserException the databaser exception
      */
-    public static Boolean exist(String databaseUrl) {
+    public static Boolean exist(String databaseUrl) throws DatabaserException {
         try (Connection connection = DriverManager.getConnection("jdbc:h2:" + databaseUrl + ";IFEXISTS=TRUE")) {
             return true;
         } catch (SQLException e) {
             if (e.getMessage().contains("[90013-")){
                 return false;
+            } else if (e.getMessage().contains("[28000-")){
+                return true;
             }
-            return true;
+           throw new DatabaserException(e);
         }
     }
 }

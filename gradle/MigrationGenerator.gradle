@@ -7,43 +7,51 @@
         mavenCentral()
     }
     dependencies {
-        classpath "io.ebean:ebean-gradle-plugin:11.5.3"
+        classpath 'com.devskiller.jpa2ddl:jpa2ddl-gradle-plugin:0.9.12'
     }
  }
- apply plugin: 'io.ebean'
+ apply plugin: 'com.devskiller.jpa2ddl'
 
- 2. Add repository to dependencies in `build.gradle`
- repositories {
-    maven {
-        url 'http://dl.bintray.com/appscharles/libs'
-    }
- }
-
- 2. Add dependency to `build.gradle`
- compile group: 'com.appscharles.libs', name: 'databaser', version: '1.+'
-
- 3. Apply this file to `build.gradle` by:
+ 2. Apply this file to `build.gradle` by:
  apply from: 'gradle/MigrationGenerator.gradle'
 
- 4. Configuration Databaser in below defined 'databaserConfig'
+ 3. Configuration Databaser in below defined 'migrationConfig'
 
- 5. Generate migration by task 'generateMigration'
+ 4. Generate migration by task 'generateMigration'
  ****************************************************************************/
 
 // Configuration
-def databaserConfig = [
-        toDir: "${projectDir}/src/main/java/com/appscharles/libs/databaser/programs/tester",
-        platform: "H2"
+def migrationConfig = [
+        toDir: "${projectDir}/src/main/java/com/appscharles/libs/databaser/programs/tester/dBMigrations",
+        hibernateDialect: "org.hibernate.dialect.H2Dialect",
+        scanPackages: ["com.appscharles.libs.databaser"]
 ]
 
-// Define tasks
-task generateMigration(type:JavaExec, group:'project') {
-    args = [
-            '--platform=' + databaserConfig.platform,
-            '--toDir=' + databaserConfig.toDir,
-            '--version=' + project.getVersion().toString()
-    ]
-    classpath sourceSets.main.runtimeClasspath
-    main  = 'com.appscharles.libs.databaser.gradles.MigrationGeneratorGradle'
+//Define tasks
+task generateMigration(dependsOn: ['generateDdl'], group:'project'){
+    outputs.upToDateWhen { false }
+    generateMigration.shouldRunAfter generateDdl
+    test.enabled = false
+}
 
+// Business
+jpa2ddl {
+    packages = migrationConfig.scanPackages
+    outputPath = File.newInstance(migrationConfig.toDir)
+    formatOutput = true
+    action = 'UPDATE'
+    delimiter = ';'
+    jpaProperties = [
+            'hibernate.dialect': migrationConfig.hibernateDialect
+    ]
+}
+
+gradle.taskGraph.whenReady {
+    taskGraph ->
+        if (taskGraph.hasTask("generateDdl")) {
+            File.newInstance(migrationConfig.toDir).mkdirs()
+            test.enabled = false
+        } else {
+            test.enabled = true
+        }
 }

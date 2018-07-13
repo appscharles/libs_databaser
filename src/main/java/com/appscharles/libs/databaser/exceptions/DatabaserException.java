@@ -8,7 +8,11 @@ public class DatabaserException extends Exception {
     // Database not created, because it is exist. [0001-000]
     // Can not connection to database. [0002-000]
     // Database is not exists [0003-001]
-
+    // H2 server is not launched [0004-001]
+    // H2 Server is not running, because in port ... is running server [0005-001]
+    // Port ... is using [0006-001]
+    // Timeout wait for h2 server running [0007-001]
+    // H2 server not launched with command ... [0008-001]
     /**
      * The Serial version uid.
      */

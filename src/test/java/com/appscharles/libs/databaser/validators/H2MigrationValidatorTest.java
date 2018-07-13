@@ -1,11 +1,13 @@
 package com.appscharles.libs.databaser.validators;
 
 import com.appscharles.libs.databaser.TestCase;
-import com.appscharles.libs.databaser.builders.ServerH2Builder;
-import com.appscharles.libs.databaser.creators.DatabaseH2Creator;
+import com.appscharles.libs.databaser.creators.H2DatabaseCreator;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import com.appscharles.libs.databaser.migrators.H2FlyWayMigrator;
-import com.appscharles.libs.databaser.servers.IServer;
+import com.appscharles.libs.databaser.runners.IServerRunner;
+import com.appscharles.libs.databaser.runners.ServerRunner;
+import com.appscharles.libs.processer.exceptions.ProcesserException;
+import com.appscharles.libs.processer.managers.WinKillManager;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,29 +28,34 @@ public class H2MigrationValidatorTest extends TestCase {
     @Test
     public void shouldValidDatabase() throws IOException, DatabaserException {
         File dBDir = this.temp.newFolder("dBDir_shouldIsNotValidDatabase");
-        IServer server = ServerH2Builder.create(12423, dBDir).build();
-        server.start();
-        DatabaseH2Creator creator = new DatabaseH2Creator("tcp://localhost:"+12423+"/myDB", "root", "secret");
+        IServerRunner runner = new ServerRunner(12423);
+        runner.enableRunForce();
+        runner.setServerDir(dBDir);
+        runner.start();
+        H2DatabaseCreator creator = new H2DatabaseCreator("tcp://localhost:"+12423+"/myDB", "root", "secret");
         creator.create();
         H2FlyWayMigrator migrator = new H2FlyWayMigrator("tcp://localhost:"+12423+"/myDB", "root"  ,"secret",
-                "com/appscharles/libs/databaser/programs/tester/dbmigration");
+                "com/appscharles/libs/databaser/programs/tester/dBMigrations");
         migrator.migrate();
         H2MigrationValidator validator = new H2MigrationValidator("tcp://localhost:"+12423+"/myDB", "root"  ,"secret",
-                "com/appscharles/libs/databaser/programs/tester/dbmigration");
+                "com/appscharles/libs/databaser/programs/tester/dBMigrations");
         Assert.assertTrue(validator.isValid());
-        server.stop();
+        runner.stop();
     }
 
     @Test
-    public void shouldIsNotValidDatabase() throws IOException, DatabaserException {
+    public void shouldIsNotValidDatabase() throws IOException, DatabaserException, ProcesserException {
+        new WinKillManager().killCommandLineContains("dBDir_shouldIsNotValidDatabase");
         File dBDir = this.temp.newFolder("dBDir_shouldIsNotValidDatabase");
-        IServer server = ServerH2Builder.create(12523, dBDir).build();
-        server.start();
-        DatabaseH2Creator creator = new DatabaseH2Creator("tcp://localhost:"+12523+"/myDB", "root", "secret");
+        IServerRunner runner = new ServerRunner(12523);
+        runner.enableRunForce();
+        runner.setServerDir(dBDir);
+        runner.start();
+        H2DatabaseCreator creator = new H2DatabaseCreator("tcp://localhost:"+12523+"/myDB", "root", "secret");
         creator.create();
         H2MigrationValidator validator = new H2MigrationValidator("tcp://localhost:"+12523+"/myDB", "root"  ,"secret",
-                "com/appscharles/libs/databaser/programs/tester/dbmigration");
+                "com/appscharles/libs/databaser/programs/tester/dBMigrations");
         Assert.assertFalse("Not found migrations? Maybe run `generateMigration` gradle task.", validator.isValid());
-        server.stop();
+        runner.stop();
     }
 }

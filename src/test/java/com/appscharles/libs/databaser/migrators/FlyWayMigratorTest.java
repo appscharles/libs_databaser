@@ -1,10 +1,12 @@
 package com.appscharles.libs.databaser.migrators;
 
 import com.appscharles.libs.databaser.TestCase;
-import com.appscharles.libs.databaser.builders.ServerH2Builder;
-import com.appscharles.libs.databaser.creators.DatabaseH2Creator;
+import com.appscharles.libs.databaser.creators.H2DatabaseCreator;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
-import com.appscharles.libs.databaser.servers.IServer;
+import com.appscharles.libs.databaser.runners.IServerRunner;
+import com.appscharles.libs.databaser.runners.ServerRunner;
+import com.appscharles.libs.processer.exceptions.ProcesserException;
+import com.appscharles.libs.processer.managers.WinKillManager;
 import org.flywaydb.core.internal.exception.FlywaySqlException;
 import org.junit.Test;
 
@@ -23,24 +25,32 @@ import java.io.IOException;
 public class FlyWayMigratorTest extends TestCase {
 
     @Test
-    public void shouldMigrate() throws IOException, DatabaserException {
+    public void shouldMigrate() throws IOException, DatabaserException, ProcesserException {
+        new WinKillManager().killCommandLineContains("dBDir_shouldMigrate");
         File dBDir = this.temp.newFolder("dBDir_shouldMigrate");
-        IServer server = ServerH2Builder.create(12323, dBDir).build();
-        server.start();
-        DatabaseH2Creator creator = new DatabaseH2Creator("tcp://localhost:"+12323+"/myDB", "root", "secret");
+        IServerRunner runner = new ServerRunner(12323);
+        runner.enableRunForce();
+        runner.setServerDir(dBDir);
+        runner.start();
+        H2DatabaseCreator creator = new H2DatabaseCreator("tcp://localhost:"+12323+"/myDB", "root", "secret");
         creator.create();
         H2FlyWayMigrator migrator = new H2FlyWayMigrator("tcp://localhost:"+12323+"/myDB", "root"  ,"secret",
-                "com/appscharles/libs/databaser/programs/tester/dbmigration");
+                "com/appscharles/libs/databaser/programs/tester/dBMigrations");
         migrator.migrate();
+        runner.stop();
     }
 
     @Test(expected = FlywaySqlException.class)
-    public void shouldThrowExceptionNotExistDatabase() throws IOException, DatabaserException {
+    public void shouldThrowExceptionNotExistDatabase() throws IOException, DatabaserException, ProcesserException {
+       new WinKillManager().killCommandLineContains("dBDir_shouldMigrate");
         File dBDir = this.temp.newFolder("dBDir_shouldMigrate");
-        IServer server = ServerH2Builder.create(12333, dBDir).build();
-        server.start();
+        IServerRunner runner = new ServerRunner(12333);
+        runner.enableRunForce();
+        runner.setServerDir(dBDir);
+        runner.start();
         H2FlyWayMigrator migrator = new H2FlyWayMigrator("tcp://localhost:"+12333+"/myDB", "root"  ,"secret",
                 "com/appscharles/libs/databaser/programs/tester/dbmigration");
         migrator.migrate();
+        runner.stop();
     }
 }

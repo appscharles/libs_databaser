@@ -1,10 +1,6 @@
 package com.appscharles.libs.databaser.programs.tester;
 
-import io.ebean.Model;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -12,9 +8,11 @@ import java.util.Date;
  */
 @Entity
 @Table(name="customer")
-public class Customer extends Model {
+public class Customer  {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, unique = true)
     private Long id;
 
     private String name;

@@ -1,5 +1,7 @@
 package com.appscharles.libs.databaser.validators;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.FlywayException;
 
@@ -7,6 +9,8 @@ import org.flywaydb.core.api.FlywayException;
  * The type H 2 migration validator.
  */
 public class H2MigrationValidator extends AbstractMigrationValidator {
+
+    private static final Logger logger = LogManager.getLogger(ServerRunningValidator.class);
 
     private String resourceMigrationPath;
 
@@ -28,11 +32,13 @@ public class H2MigrationValidator extends AbstractMigrationValidator {
         Flyway flyway = new Flyway();
         flyway.setLocations("classpath:" + this.resourceMigrationPath);
         flyway.setDataSource("jdbc:h2:"+this.databaseUrl + ";IFEXISTS=TRUE", this.username, this.password);
+        flyway.setSqlMigrationPrefix("v");
         try {
             System.out.println(flyway.getBaselineVersion());
             flyway.validate();
             return true;
         } catch (FlywayException e) {
+            logger.debug(e);
             return false;
         }
     }

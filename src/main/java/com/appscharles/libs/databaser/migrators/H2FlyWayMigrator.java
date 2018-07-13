@@ -26,6 +26,7 @@ public class H2FlyWayMigrator extends AbstractFlyWayMigrator {
     public void migrate() throws DatabaserException{
         Flyway flyway = new Flyway();
         flyway.setLocations("classpath:" + this.resourceMigrationPath);
+        flyway.setSqlMigrationPrefix("v");
         flyway.setDataSource("jdbc:h2:"+this.databaseUrl + ";IFEXISTS=TRUE", this.username, this.password);
         flyway.migrate();
     }
