@@ -4,10 +4,11 @@ import com.appscharles.libs.databaser.TestCase;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import com.appscharles.libs.databaser.validators.ServerRunningValidator;
 import com.appscharles.libs.jarer.exceptions.JarerException;
-import com.appscharles.libs.jarer.removers.AutostartUserRemover;
-import com.appscharles.libs.jarer.validators.AutostartUserValidator;
 import com.appscharles.libs.processer.exceptions.ProcesserException;
 import com.appscharles.libs.processer.managers.WinKillManager;
+import com.appscharles.libs.reger.exceptions.RegerException;
+import com.appscharles.libs.reger.removers.AutostartUserRemover;
+import com.appscharles.libs.reger.validators.AutostartUserValidator;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,7 +27,7 @@ import java.io.IOException;
 public class ServerRunnerTest extends TestCase {
 
     @Test
-    public void shouldRunServer() throws DatabaserException, IOException, ProcesserException, JarerException {
+    public void shouldRunServer() throws DatabaserException, IOException, ProcesserException, JarerException, RegerException {
         new WinKillManager().killCommandLineContains("serverDirTest");
         File serverDirTest = this.temp.newFolder("serverDirTest");
         Integer port = 2422;

@@ -6,10 +6,10 @@ import com.appscharles.libs.databaser.extractors.H2JarExtractor;
 import com.appscharles.libs.databaser.validators.PortUsingValidator;
 import com.appscharles.libs.databaser.validators.ServerRunningValidator;
 import com.appscharles.libs.databaser.waiters.ServerRunningWaiter;
-import com.appscharles.libs.jarer.creators.AutostartCreator;
-import com.appscharles.libs.jarer.exceptions.JarerException;
 import com.appscharles.libs.processer.exceptions.ProcesserException;
 import com.appscharles.libs.processer.managers.WinKillManager;
+import com.appscharles.libs.reger.creators.AutostartCreator;
+import com.appscharles.libs.reger.exceptions.RegerException;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,7 +52,7 @@ public class ServerRunner extends AbstractServerRunner {
             } catch (DatabaserException e1) {
                 throw new DatabaserException("H2 server not launched with command "+command+" [0008-001]", e1);
             }
-        } catch (JarerException | IOException | ProcesserException e) {
+        } catch (RegerException | IOException | ProcesserException e) {
             throw new DatabaserException(e);
         }
     }
