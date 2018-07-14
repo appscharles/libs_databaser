@@ -30,8 +30,9 @@ def migrationConfig = [
 //Define tasks
 task generateMigration(dependsOn: ['generateDdl'], group:'project'){
     outputs.upToDateWhen { false }
+    generateMigration.dependsOn.remove(test)
     generateMigration.shouldRunAfter generateDdl
-    test.enabled = false
+    //test.enabled = false
 }
 
 // Business
@@ -44,14 +45,4 @@ jpa2ddl {
     jpaProperties = [
             'hibernate.dialect': migrationConfig.hibernateDialect
     ]
-}
-
-gradle.taskGraph.whenReady {
-    taskGraph ->
-        if (taskGraph.hasTask("generateDdl")) {
-            File.newInstance(migrationConfig.toDir).mkdirs()
-            test.enabled = false
-        } else {
-            test.enabled = true
-        }
 }

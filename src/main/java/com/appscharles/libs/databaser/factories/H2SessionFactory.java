@@ -3,7 +3,9 @@ package com.appscharles.libs.databaser.factories;
 import com.appscharles.libs.databaser.builders.H2ConfigurationHibernateBuilder;
 import com.appscharles.libs.databaser.builders.SessionFactoryBuilder;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
+import com.appscharles.libs.databaser.exceptions.ThrowingConsumer;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 /**
@@ -33,8 +35,17 @@ public class H2SessionFactory extends AbstractSessionFactory {
 
     public Session openSession() throws DatabaserException {
         if (this.sessionFactory == null) {
-            this.sessionFactory = SessionFactoryBuilder.create(this.configuration).addAnnotationClasses(this.annotationClasses).build();
+            this.sessionFactory = SessionFactoryBuilder.create(this.configuration).addAnnotationClasses(this.annotationClasses).addPackagesToScan(this.packagesToScan).build();
         }
         return this.sessionFactory.openSession();
+    }
+
+    @Override
+    public void commit(ThrowingConsumer<Session, DatabaserException> session) throws DatabaserException {
+        Session s = openSession();
+        Transaction t = s.beginTransaction();
+        session.accept(s);
+        t.commit();
+        s.close();
     }
 }

@@ -1,6 +1,9 @@
 package com.appscharles.libs.databaser.programs.tester;
 
-import javax.persistence.*;
+import com.appscharles.libs.databaser.models.BaseModel;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 /**
@@ -8,27 +11,13 @@ import java.util.Date;
  */
 @Entity
 @Table(name="customer")
-public class Customer  {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, unique = true)
-    private Long id;
+public class Customer extends BaseModel {
 
     private String name;
 
     private Date registered;
 
     private String comments;
-
-    /**
-     * Gets id.
-     *
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
 
     /**
      * Gets name.

@@ -1,6 +1,7 @@
 package com.appscharles.libs.databaser.builders;
 
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
+import com.github.fluent.hibernate.cfg.scanner.EntityScanner;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -60,6 +61,20 @@ public class SessionFactoryBuilder {
      */
     public SessionFactoryBuilder addAnnotationClasses(List<Class> annotationClasses) {
         annotationClasses.forEach((c)->this.configuration.addAnnotatedClass(c));
+        return this;
+    }
+
+    /**
+     * Add packages to scan session factory builder.
+     *
+     * @param packagesToScan the packages to scan
+     * @return the session factory builder
+     */
+    public SessionFactoryBuilder addPackagesToScan(List<String> packagesToScan) {
+       if (packagesToScan.size() > 0){
+           List<Class<?>> annotationClasses = EntityScanner.scanPackages(packagesToScan.toArray(new String[0])).result();
+           annotationClasses.forEach((c)->this.configuration.addAnnotatedClass(c));
+       }
         return this;
     }
 }

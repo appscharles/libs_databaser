@@ -24,6 +24,8 @@ public abstract class AbstractSessionFactory implements ISessionFactory{
 
     protected List<Class> annotationClasses;
 
+    protected List<String> packagesToScan;
+
     /**
      * Instantiates a new Abstract session factory.
      *
@@ -32,6 +34,7 @@ public abstract class AbstractSessionFactory implements ISessionFactory{
     public AbstractSessionFactory(Configuration configuration) {
         this.configuration = configuration;
         this.annotationClasses = new ArrayList<>();
+        this.packagesToScan = new ArrayList<>();
     }
 
     public void closeSessionFactory() throws DatabaserException {
@@ -48,4 +51,10 @@ public abstract class AbstractSessionFactory implements ISessionFactory{
     public void addAnnotationClass(Class aClass) {
         this.annotationClasses.add(aClass);
     }
+
+    @Override
+    public void addPackageToScan(String packageName) {
+        this.packagesToScan.add(packageName);
+    }
+
 }

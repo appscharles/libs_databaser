@@ -1,9 +1,11 @@
 package com.appscharles.libs.databaser.factories;
 
 import com.appscharles.libs.databaser.TestCase;
+import com.appscharles.libs.databaser.builders.TestH2SessionFactoryBuilder;
 import com.appscharles.libs.databaser.creators.H2DatabaseCreator;
 import com.appscharles.libs.databaser.creators.IDatabaseCreator;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
+import com.appscharles.libs.databaser.managers.DB;
 import com.appscharles.libs.databaser.migrators.H2FlyWayMigrator;
 import com.appscharles.libs.databaser.programs.tester.Customer;
 import com.appscharles.libs.databaser.runners.IServerRunner;
@@ -48,7 +50,7 @@ public class H2SessionFactoryTest extends TestCase {
                 "com/appscharles/libs/databaser/programs/tester/dBMigrations");
         Assert.assertTrue(validator.isValid());
         ISessionFactory sessionFactory = new H2SessionFactory("tcp://localhost:" + port + "/myDB", "root", "secret");
-        sessionFactory.addAnnotationClass(Customer.class);
+        sessionFactory.addPackageToScan("com.appscharles.libs.databaser");
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Customer customer = new Customer();
@@ -57,5 +59,38 @@ public class H2SessionFactoryTest extends TestCase {
         transaction.commit();
         session.close();
         sessionFactory.closeSessionFactory();
+    }
+
+    @Test
+    public void shouldAddCustomerToDatabase2() throws DatabaserException {
+        ISessionFactory sessionFactory = TestH2SessionFactoryBuilder.create(5478, "com/appscharles/libs/databaser/programs/tester/dBMigrations", Customer.class).build();
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        Customer customer = new Customer();
+        customer.setName("Example name");
+        session.persist(customer);
+        transaction.commit();
+        session.close();
+        sessionFactory.closeSessionFactory();
+    }
+
+    @Test
+    public void shouldAddCustomerToDatabase3() throws DatabaserException, ClassNotFoundException, InterruptedException {
+        ISessionFactory sessionFactory = TestH2SessionFactoryBuilder.create(5478, "com/appscharles/libs/databaser/programs/tester/dBMigrations", Customer.class).build();
+        DB.addSessionFactory("databaser", sessionFactory, true);
+        Customer customer = new Customer();
+        customer.setName("Example name");
+        DB.save(customer);
+        Assert.assertNotNull(customer.getCreatedAt());
+        Assert.assertNotNull(customer.getUpdatedAt());
+        Assert.assertEquals(customer.getUpdatedAt(), customer.getCreatedAt());
+        Thread.sleep(1000);
+        customer.setName("Example name2");
+        DB.save(customer);
+        Assert.assertNotEquals(customer.getUpdatedAt(), customer.getCreatedAt());
+        Customer c = DB.get(Customer.class, customer.getId());
+        Assert.assertEquals(c.getId(), customer.getId());
+        DB.delete(c);
+        DB.closeDefaultSessionFactory();
     }
 }
