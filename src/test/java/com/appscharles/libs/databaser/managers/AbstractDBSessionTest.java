@@ -21,7 +21,7 @@ public class AbstractDBSessionTest {
     @Test
     public void shouldGetCustomers() throws DatabaserException {
         ISessionFactory sessionFactory = TestH2SessionFactoryBuilder.create(5478, "com/appscharles/libs/databaser/programs/tester/dBMigrations", Customer.class).build();
-        DB.addSessionFactory("databaser5", sessionFactory, true);
+        SFManager.addSessionFactory("databaser5", sessionFactory, true);
         Customer customer = new Customer();
         customer.setName("John");
         DB.save(customer);
@@ -30,6 +30,6 @@ public class AbstractDBSessionTest {
         customer2.setName("John 2");
         DB.save(customer2);
         Assert.assertEquals(DB.getAll(Customer.class).size(), 2);
-        DB.closeDefaultSessionFactory();
+        SFManager.closeDefaultSessionFactory();
     }
 }

@@ -6,6 +6,7 @@ import com.appscharles.libs.databaser.creators.H2DatabaseCreator;
 import com.appscharles.libs.databaser.creators.IDatabaseCreator;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import com.appscharles.libs.databaser.managers.DB;
+import com.appscharles.libs.databaser.managers.SFManager;
 import com.appscharles.libs.databaser.migrators.H2FlyWayMigrator;
 import com.appscharles.libs.databaser.programs.tester.Customer;
 import com.appscharles.libs.databaser.runners.IServerRunner;
@@ -15,11 +16,16 @@ import com.appscharles.libs.processer.exceptions.ProcesserException;
 import com.appscharles.libs.processer.managers.WinKillManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.junit.Assert;
 import org.junit.Test;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * IDE Editor: IntelliJ IDEA
@@ -77,7 +83,7 @@ public class H2SessionFactoryTest extends TestCase {
     @Test
     public void shouldAddCustomerToDatabase3() throws DatabaserException, ClassNotFoundException, InterruptedException {
         ISessionFactory sessionFactory = TestH2SessionFactoryBuilder.create(5478, "com/appscharles/libs/databaser/programs/tester/dBMigrations", Customer.class).build();
-        DB.addSessionFactory("databaser", sessionFactory, true);
+        SFManager.addSessionFactory("databaser", sessionFactory, true);
         Customer customer = new Customer();
         customer.setName("Example name");
         DB.save(customer);
@@ -90,7 +96,24 @@ public class H2SessionFactoryTest extends TestCase {
         Assert.assertNotEquals(customer.getUpdatedAt(), customer.getCreatedAt());
         Customer c = DB.get(Customer.class, customer.getId());
         Assert.assertEquals(c.getId(), customer.getId());
+        Customer c2 = DB.session((session -> {
+            return session.get(Customer.class, c.getId());
+        }));
+        Customer customer2 = new Customer();
+        customer2.setName("Example name");
+        DB.save(customer2);
+
+        List<Customer> customers = DB.session((session -> {
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Customer> criteriaQuery = builder.createQuery(Customer.class);
+            Root<Customer> root = criteriaQuery.from(Customer.class);
+            criteriaQuery.select(root);
+            Query<Customer> q = session.createQuery(criteriaQuery);
+            return q.getResultList();
+        }));
+        Assert.assertEquals(customers.size(), 2);
+        Assert.assertEquals(c2.getId(), c.getId());
         DB.delete(c);
-        DB.closeDefaultSessionFactory();
+        SFManager.closeDefaultSessionFactory();
     }
 }

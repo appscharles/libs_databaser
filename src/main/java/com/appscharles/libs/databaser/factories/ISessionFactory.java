@@ -9,5 +9,5 @@ package com.appscharles.libs.databaser.factories;
  *
  * @author Karol Golec karol.itgolo@gmail.com
  */
-public interface ISessionFactory extends ISessionFactoryClosable, ISessionOpenable, IAnnotationClassable, IPackageScannable, ISessionCommittable{
+public interface ISessionFactory extends ISessionFactoryClosable, ISessionOpenable, IAnnotationClassable, IPackageScannable{
 }

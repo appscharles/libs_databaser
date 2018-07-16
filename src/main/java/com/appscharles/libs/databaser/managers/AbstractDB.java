@@ -1,7 +1,10 @@
 package com.appscharles.libs.databaser.managers;
 
+import com.appscharles.libs.databaser.exceptions.CallableThrowingConsumer;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
+import com.appscharles.libs.databaser.exceptions.ThrowingConsumer;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -13,7 +16,7 @@ import java.util.List;
 /**
  * The type Abstract db session name.
  */
-public abstract class AbstractDBSessionName {
+public abstract class AbstractDB {
 
     /**
      * Save.
@@ -23,9 +26,9 @@ public abstract class AbstractDBSessionName {
      * @throws DatabaserException the databaser exception
      */
     public static void save(Object entity, String sessionFactoryName) throws DatabaserException {
-        DB.getSessionFactory(sessionFactoryName).commit((session -> {
+        DB.commit((session -> {
             session.saveOrUpdate(entity);
-        }));
+        }), sessionFactoryName);
     }
 
     /**
@@ -36,9 +39,9 @@ public abstract class AbstractDBSessionName {
      * @throws DatabaserException the databaser exception
      */
     public static void delete(Object entity, String sessionFactoryName) throws DatabaserException {
-        DB.getSessionFactory(sessionFactoryName).commit((session -> {
+        DB.commit((session -> {
             session.delete(entity);
-        }));
+        }), sessionFactoryName);
     }
 
     /**
@@ -52,7 +55,7 @@ public abstract class AbstractDBSessionName {
      * @throws DatabaserException the databaser exception
      */
     public static <T> T get(Class entityClass, Serializable id, String sessionFactoryName) throws DatabaserException {
-        Session session = DB.getSessionFactory(sessionFactoryName).openSession();
+        Session session = SFManager.getSessionFactory(sessionFactoryName).openSession();
         return (T) session.get(entityClass, id);
     }
 
@@ -61,18 +64,39 @@ public abstract class AbstractDBSessionName {
      *
      * @param <T>                the type parameter
      * @param entityClass        the entity class
-     * @param id                 the id
      * @param sessionFactoryName the session factory name
      * @return the all
      * @throws DatabaserException the databaser exception
      */
     public static <T extends List> T getAll(Class entityClass, String sessionFactoryName) throws DatabaserException {
-        Session session = DB.getSessionFactory(sessionFactoryName).openSession();
+        Session session = SFManager.getSessionFactory(sessionFactoryName).openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = builder.createQuery(entityClass);
         Root<T> root = criteriaQuery.from(entityClass);
         criteriaQuery.select(root);
         Query<T> q = session.createQuery(criteriaQuery);
         return (T) q.getResultList();
+    }
+
+    /**
+     * Commit.
+     *
+     * @param session            the session
+     * @param sessionFactoryName the session factory name
+     * @throws DatabaserException the databaser exception
+     */
+    public static void commit(ThrowingConsumer<Session, DatabaserException> session, String sessionFactoryName) throws DatabaserException {
+        Session s = SFManager.getSessionFactory(sessionFactoryName).openSession();
+        Transaction t = s.beginTransaction();
+        session.accept(s);
+        t.commit();
+        s.close();
+    }
+
+    public static <T> T session(CallableThrowingConsumer<Session, T,  DatabaserException> session, String sessionFactoryName) throws DatabaserException {
+        Session s = SFManager.getSessionFactory(sessionFactoryName).openSession();
+        Object sessionResult = session.accept(s);
+        s.close();
+        return (T)sessionResult;
     }
 }

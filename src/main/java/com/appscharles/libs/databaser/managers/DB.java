@@ -1,139 +1,83 @@
 package com.appscharles.libs.databaser.managers;
 
-import com.appscharles.libs.databaser.containers.SessionFactoryContainer;
+import com.appscharles.libs.databaser.exceptions.CallableThrowingConsumer;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
-import com.appscharles.libs.databaser.factories.ISessionFactory;
+import com.appscharles.libs.databaser.exceptions.ThrowingConsumer;
+import org.hibernate.Session;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.io.Serializable;
+import java.util.List;
 
 /**
- * The type Session factory manager.
+ * The type Db.
  */
-public class DB extends AbstractDBSession {
+public class DB extends AbstractDB {
 
-    private static final Map<String, SessionFactoryContainer> sessionFactoryContainers = new HashMap<>();
-
-    private static void undefaultSessionFactories() {
-        sessionFactoryContainers.forEach((name, sessionFactoryContainer)->{
-            sessionFactoryContainer.setDefaultSessionFactory(false);
-        });
-    }
-    
     /**
-     * Add session factory.
+     * Save.
      *
-     * @param name                  the name
-     * @param sessionFactory        the session factory
-     * @param defaultSessionFactory the default session factory
+     * @param entity the entity
      * @throws DatabaserException the databaser exception
      */
-    public synchronized static void addSessionFactory(String name, ISessionFactory sessionFactory, Boolean defaultSessionFactory) throws DatabaserException {
-        if (sessionFactoryContainers.containsKey(name)) {
-            throw new DatabaserException("Session factory '" + name + "' is exist.");
-        }
-        if (defaultSessionFactory) {
-            undefaultSessionFactories();
-        }
-        sessionFactoryContainers.put(name, new SessionFactoryContainer(name, sessionFactory, defaultSessionFactory));
+    public static void save(Object entity) throws DatabaserException {
+        save(entity, SFManager.getDefaultSessionFactoryName());
     }
 
     /**
-     * Gets default.
+     * Delete.
      *
-     * @return the default
+     * @param entity the entity
      * @throws DatabaserException the databaser exception
      */
-    public static ISessionFactory getDefaultSessionFactory() throws DatabaserException {
-        for (Map.Entry<String, SessionFactoryContainer> entry : sessionFactoryContainers.entrySet()) {
-            if (entry.getValue().getDefaultSessionFactory()) {
-                return entry.getValue().getSessionFactory();
-            }
-        }
-        throw new DatabaserException("Not found default session factory.");
-    }
-
-    public static String getDefaultSessionFactoryName() throws DatabaserException {
-        for (Map.Entry<String, SessionFactoryContainer> entry : sessionFactoryContainers.entrySet()) {
-            if (entry.getValue().getDefaultSessionFactory()) {
-                return entry.getKey();
-            }
-        }
-        throw new DatabaserException("Not found default session factory.");
+    public static void delete(Object entity) throws DatabaserException {
+        delete(entity, SFManager.getDefaultSessionFactoryName());
     }
 
     /**
-     * Get session factory.
+     * Get t.
      *
-     * @param name the name
-     * @return the session factory
+     * @param <T>         the type parameter
+     * @param entityClass the entity class
+     * @param id          the id
+     * @return the t
      * @throws DatabaserException the databaser exception
      */
-    public static ISessionFactory getSessionFactory(String name) throws DatabaserException {
-        for (Map.Entry<String, SessionFactoryContainer> entry : sessionFactoryContainers.entrySet()) {
-            if (entry.getKey().equals(name)) {
-                return entry.getValue().getSessionFactory();
-            }
-        }
-        throw new DatabaserException("Not found '" + name + "' session factory.");
+    public static <T> T get(Class entityClass, Serializable id) throws DatabaserException {
+        return get(entityClass, id, SFManager.getDefaultSessionFactoryName());
     }
 
     /**
-     * Sets default.
+     * Gets all.
      *
-     * @param name the name
+     * @param <T>         the type parameter
+     * @param entityClass the entity class
+     * @return the all
      * @throws DatabaserException the databaser exception
      */
-    public synchronized static void setDefaultSessionFactory(String name) throws DatabaserException {
-        for (Map.Entry<String, SessionFactoryContainer> entry : sessionFactoryContainers.entrySet()) {
-            if (entry.getKey().equals(name)) {
-                undefaultSessionFactories();
-                entry.getValue().setDefaultSessionFactory(true);
-                return;
-            }
-        }
-        throw new DatabaserException("Not found '" + name + "' session factory.");
+    public static <T extends List> T getAll(Class entityClass) throws DatabaserException {
+        return getAll(entityClass, SFManager.getDefaultSessionFactoryName());
     }
 
     /**
-     * Close.
+     * Commit.
      *
-     * @param name the name
+     * @param session the session
      * @throws DatabaserException the databaser exception
      */
-    public static void closeSessionFactory(String name) throws DatabaserException {
-        for (Map.Entry<String, SessionFactoryContainer> entry : sessionFactoryContainers.entrySet()) {
-            if (entry.getKey().equals(name)) {
-                entry.getValue().getSessionFactory().closeSessionFactory();
-                return;
-            }
-        }
-        throw new DatabaserException("Not found '" + name + "' session factory.");
+    public static void commit(ThrowingConsumer<Session, DatabaserException> session) throws DatabaserException {
+        commit(session, SFManager.getDefaultSessionFactoryName());
     }
 
     /**
-     * Close default.
+     * Session t.
      *
+     * @param <T>     the type parameter
+     * @param session the session
+     * @return the t
      * @throws DatabaserException the databaser exception
      */
-    public static void closeDefaultSessionFactory() throws DatabaserException {
-        for (Map.Entry<String, SessionFactoryContainer> entry : sessionFactoryContainers.entrySet()) {
-            if (entry.getValue().getDefaultSessionFactory()) {
-                entry.getValue().getSessionFactory().closeSessionFactory();
-            return;
-            }
-        }
-        throw new DatabaserException("Not found default session factory.");
+    public static <T> T session(CallableThrowingConsumer<Session, T,  DatabaserException> session) throws DatabaserException {
+       return session(session, SFManager.getDefaultSessionFactoryName());
     }
 
-    /**
-     * Close.
-     *
-     * @throws DatabaserException the databaser exception
-     */
-    public static void closeSessionFactories() throws DatabaserException {
-        for (Map.Entry<String, SessionFactoryContainer> entry : sessionFactoryContainers.entrySet()) {
-            entry.getValue().getSessionFactory().closeSessionFactory();
-        }
-    }
 }
