@@ -31,7 +31,7 @@ public class ServerRunningWaiterTest extends TestCase {
     public void shouldWaitForRunningServer() throws DatabaserException, ProcesserException, IOException {
         new WinKillManager().killCommandLineContains("serverDirTest");
         File serverDir = this.temp.newFolder("serverDirTest");
-        IServerRunner runner = new ServerRunner(2342);
+        IServerRunner runner = new ServerRunner(2342, "myApp");
         runner.enableRunForce();
         runner.setServerDir(serverDir);
         runner.start();

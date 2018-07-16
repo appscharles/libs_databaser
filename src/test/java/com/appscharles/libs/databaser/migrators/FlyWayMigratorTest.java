@@ -28,7 +28,7 @@ public class FlyWayMigratorTest extends TestCase {
     public void shouldMigrate() throws IOException, DatabaserException, ProcesserException {
         new WinKillManager().killCommandLineContains("dBDir_shouldMigrate");
         File dBDir = this.temp.newFolder("dBDir_shouldMigrate");
-        IServerRunner runner = new ServerRunner(12323);
+        IServerRunner runner = new ServerRunner(12323, "myApp");
         runner.enableRunForce();
         runner.setServerDir(dBDir);
         runner.start();
@@ -44,7 +44,7 @@ public class FlyWayMigratorTest extends TestCase {
     public void shouldThrowExceptionNotExistDatabase() throws IOException, DatabaserException, ProcesserException {
        new WinKillManager().killCommandLineContains("dBDir_shouldMigrate");
         File dBDir = this.temp.newFolder("dBDir_shouldMigrate");
-        IServerRunner runner = new ServerRunner(12333);
+        IServerRunner runner = new ServerRunner(12333, "myApp");
         runner.enableRunForce();
         runner.setServerDir(dBDir);
         runner.start();

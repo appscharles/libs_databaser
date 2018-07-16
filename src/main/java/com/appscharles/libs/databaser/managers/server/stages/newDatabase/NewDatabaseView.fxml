@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <padding>
+      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+   </padding>
+   <children>
+      <VBox spacing="5.0">
+         <children>
+            <Label text="%view.header_text.enter_database_configuration">
+               <padding>
+                  <Insets bottom="5.0" />
+               </padding>
+            </Label>
+            <GridPane hgap="5.0">
+              <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="%view.label.database_name" />
+                  <Label text="%view.label.user" GridPane.rowIndex="1" />
+                  <Label text="%view.label.password" GridPane.rowIndex="2" />
+                  <TextField fx:id="fieldName" minWidth="140.0" promptText="%view.text_field_prompt.database_name" GridPane.columnIndex="1" />
+                  <TextField fx:id="fieldUser" minWidth="140.0" promptText="%view.text_field_prompt.user" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="%view.label.confirm_password" GridPane.rowIndex="3" />
+                  <PasswordField fx:id="fieldPassword" minWidth="140.0" promptText="%view.text_field_prompt.password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <PasswordField fx:id="fieldConfirmPassword" minWidth="140.0" promptText="%view.text_field_prompt.confirm_password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+      <HBox alignment="TOP_RIGHT" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#add" text="%view.button.add" />
+            <Button mnemonicParsing="false" onAction="#cancel" text="%view.button.cancel" />
+         </children>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </HBox>
+   </children>
+</VBox>

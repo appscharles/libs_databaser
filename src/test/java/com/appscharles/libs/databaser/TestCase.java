@@ -20,7 +20,7 @@ public class TestCase {
 
     @Before
     public void before(){
-        new Log4j2Console(Level.DEBUG).config();
+        new Log4j2Console(Level.TRACE).config();
        new Log4jConsole(org.apache.log4j.Level.INFO).config();
     }
 

@@ -82,7 +82,7 @@ public class TestH2SessionFactoryBuilder {
         try {
             File serverDir = Files.createTempDirectory(this.serverDirectoryName).toFile();
             new WinKillManager().killCommandLineContains(this.serverDirectoryName);
-            IServerRunner runner = new ServerRunner(this.port);
+            IServerRunner runner = new ServerRunner(this.port, "myApp");
             runner.setServerDir(serverDir);
             runner.enableRunForce();
             runner.start();

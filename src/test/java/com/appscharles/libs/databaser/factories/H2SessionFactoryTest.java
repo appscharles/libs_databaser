@@ -5,7 +5,7 @@ import com.appscharles.libs.databaser.builders.TestH2SessionFactoryBuilder;
 import com.appscharles.libs.databaser.creators.H2DatabaseCreator;
 import com.appscharles.libs.databaser.creators.IDatabaseCreator;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
-import com.appscharles.libs.databaser.managers.DB;
+import com.appscharles.libs.databaser.operators.DBOperator;
 import com.appscharles.libs.databaser.managers.SFManager;
 import com.appscharles.libs.databaser.migrators.H2FlyWayMigrator;
 import com.appscharles.libs.databaser.programs.tester.Customer;
@@ -43,7 +43,7 @@ public class H2SessionFactoryTest extends TestCase {
         File serverDir = this.temp.newFolder("serverDir123");
         new WinKillManager().killCommandLineContains("serverDir123");
         Integer port = 4531;
-        IServerRunner runner = new ServerRunner(port);
+        IServerRunner runner = new ServerRunner(port, "myApp");
         runner.setServerDir(serverDir);
         runner.enableRunForce();
         runner.start();
@@ -86,24 +86,24 @@ public class H2SessionFactoryTest extends TestCase {
         SFManager.addSessionFactory("databaser", sessionFactory, true);
         Customer customer = new Customer();
         customer.setName("Example name");
-        DB.save(customer);
+        DBOperator.save(customer);
         Assert.assertNotNull(customer.getCreatedAt());
         Assert.assertNotNull(customer.getUpdatedAt());
         Assert.assertEquals(customer.getUpdatedAt(), customer.getCreatedAt());
         Thread.sleep(1000);
         customer.setName("Example name2");
-        DB.save(customer);
+        DBOperator.save(customer);
         Assert.assertNotEquals(customer.getUpdatedAt(), customer.getCreatedAt());
-        Customer c = DB.get(Customer.class, customer.getId());
+        Customer c = DBOperator.get(Customer.class, customer.getId());
         Assert.assertEquals(c.getId(), customer.getId());
-        Customer c2 = DB.session((session -> {
+        Customer c2 = DBOperator.session((session -> {
             return session.get(Customer.class, c.getId());
         }));
         Customer customer2 = new Customer();
         customer2.setName("Example name");
-        DB.save(customer2);
+        DBOperator.save(customer2);
 
-        List<Customer> customers = DB.session((session -> {
+        List<Customer> customers = DBOperator.session((session -> {
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Customer> criteriaQuery = builder.createQuery(Customer.class);
             Root<Customer> root = criteriaQuery.from(Customer.class);
@@ -113,7 +113,7 @@ public class H2SessionFactoryTest extends TestCase {
         }));
         Assert.assertEquals(customers.size(), 2);
         Assert.assertEquals(c2.getId(), c.getId());
-        DB.delete(c);
+        DBOperator.delete(c);
         SFManager.closeDefaultSessionFactory();
     }
 }

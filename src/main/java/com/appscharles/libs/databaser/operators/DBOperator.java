@@ -1,8 +1,9 @@
-package com.appscharles.libs.databaser.managers;
+package com.appscharles.libs.databaser.operators;
 
 import com.appscharles.libs.databaser.exceptions.CallableThrowingConsumer;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import com.appscharles.libs.databaser.exceptions.ThrowingConsumer;
+import com.appscharles.libs.databaser.managers.SFManager;
 import org.hibernate.Session;
 
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * The type Db.
  */
-public class DB extends AbstractDB {
+public class DBOperator extends AbstractDBOperator {
 
     /**
      * Save.

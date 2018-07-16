@@ -32,18 +32,24 @@ public abstract class AbstractServerRunner implements IServerRunner {
 
     protected Boolean runForce;
 
+    protected String command;
+
+    protected String appID;
+
     /**
      * Instantiates a new Abstract server runner.
      *
      * @param tcpPort   the tcp port
      * @param serverDir the server dir
      */
-    public AbstractServerRunner(Integer tcpPort, File serverDir) {
+    public AbstractServerRunner(Integer tcpPort, String appID, File serverDir) {
         this.tcpPort = tcpPort;
+        this.appID = appID;
         this.serverDir = serverDir;
         this.autostart = false;
         this.serverRunningTimeout = DEFAULT_TIMEOUT_SERVER_RUNNING;
         this.runForce = false;
+        this.command = null;
     }
 
     @Override
@@ -69,5 +75,10 @@ public abstract class AbstractServerRunner implements IServerRunner {
     @Override
     public void enableRunForce() {
         this.runForce = true;
+    }
+
+    @Override
+    public String getCommand() {
+        return this.command;
     }
 }

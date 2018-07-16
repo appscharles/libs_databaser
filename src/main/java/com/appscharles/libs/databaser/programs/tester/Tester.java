@@ -48,7 +48,7 @@ public class Tester {
             Integer port = 3325;
             new WinKillManager().killCommandLineContains("serverDirTesterProgram");
             File serverDir = Files.createTempDirectory("serverDirTesterProgram").toFile();
-            IServerRunner runner = new ServerRunner(port);
+            IServerRunner runner = new ServerRunner(port, "myApp");
             runner.setServerDir(serverDir);
             runner.enableRunForce();
             runner.start();

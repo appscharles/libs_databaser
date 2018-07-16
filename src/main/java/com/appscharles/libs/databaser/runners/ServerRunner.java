@@ -24,8 +24,8 @@ public class ServerRunner extends AbstractServerRunner {
      *
      * @param port the port
      */
-    public ServerRunner(Integer port) {
-        super(port, new File(System.getenv("ProgramFiles(X86)"), "Databaser"));
+    public ServerRunner(Integer port, String appID) {
+        super(port, appID, new File(System.getenv("ProgramFiles(X86)"), "Databaser"));
     }
 
     @Override
@@ -39,14 +39,15 @@ public class ServerRunner extends AbstractServerRunner {
           } else if (PortUsingValidator.isUsing("localhost", this.tcpPort)) {
               throw new DatabaserException("Port " + this.tcpPort + " is using [0006-001]");
           }
-          File h2JarFile = new File(this.serverDir, "h2database.jar");
+          File h2JarFile = new File(this.serverDir, this.appID + "_h2database.jar");
           new H2JarExtractor().toFile("/com/appscharles/libs/databaser/jars/h2database.jar", h2JarFile);
-          String command = "java -jar \"" + h2JarFile.getAbsolutePath() +"\"" + H2JarArgumentsConfigurator.getCommandArguments(this.tcpPort, this.webPort,this.serverDir);
+          this.command = "java -jar \"" + h2JarFile.getAbsolutePath() +"\"" + H2JarArgumentsConfigurator.getCommandArguments(this.tcpPort, this.webPort,this.serverDir);
 
           if (this.autostart) {
-                AutostartCreator.create("h2database.jar", new File(this.serverDir, "h2database.bat"), command);
+                AutostartCreator.create(this.appID + "_h2database.jar", new File(this.serverDir, this.appID + "_h2database.bat"), this.command);
             }
-           Runtime.getRuntime().exec(command);
+
+           Runtime.getRuntime().exec(this.command);
             try {
                 ServerRunningWaiter.waitForRunInLocalhost(this.tcpPort, this.serverRunningTimeout);
             } catch (DatabaserException e1) {

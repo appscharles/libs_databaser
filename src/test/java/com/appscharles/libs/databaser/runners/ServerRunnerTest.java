@@ -31,7 +31,7 @@ public class ServerRunnerTest extends TestCase {
         new WinKillManager().killCommandLineContains("serverDirTest");
         File serverDirTest = this.temp.newFolder("serverDirTest");
         Integer port = 2422;
-        IServerRunner runner = new ServerRunner(port);
+        IServerRunner runner = new ServerRunner(port, "myApp");
         runner.enableRunForce();
         runner.setServerDir(serverDirTest);
         runner.enableAutostart();

@@ -1,8 +1,9 @@
-package com.appscharles.libs.databaser.managers;
+package com.appscharles.libs.databaser.operators;
 
 import com.appscharles.libs.databaser.exceptions.CallableThrowingConsumer;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import com.appscharles.libs.databaser.exceptions.ThrowingConsumer;
+import com.appscharles.libs.databaser.managers.SFManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * The type Abstract db session name.
  */
-public abstract class AbstractDB {
+public abstract class AbstractDBOperator {
 
     /**
      * Save.
@@ -26,7 +27,7 @@ public abstract class AbstractDB {
      * @throws DatabaserException the databaser exception
      */
     public static void save(Object entity, String sessionFactoryName) throws DatabaserException {
-        DB.commit((session -> {
+        DBOperator.commit((session -> {
             session.saveOrUpdate(entity);
         }), sessionFactoryName);
     }
@@ -39,7 +40,7 @@ public abstract class AbstractDB {
      * @throws DatabaserException the databaser exception
      */
     public static void delete(Object entity, String sessionFactoryName) throws DatabaserException {
-        DB.commit((session -> {
+        DBOperator.commit((session -> {
             session.delete(entity);
         }), sessionFactoryName);
     }

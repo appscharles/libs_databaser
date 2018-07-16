@@ -30,7 +30,7 @@ public class DatabaseCreatorTest extends TestCase {
         new WinKillManager().killCommandLineContains("dbdbdb");
         File dbDir = this.temp.newFolder("dbdbdb dir");
         Integer port = 3425;
-        IServerRunner runner = new ServerRunner(3425);
+        IServerRunner runner = new ServerRunner(3425, "myApp");
         runner.enableRunForce();
         runner.setServerDir(dbDir);
         runner.start();
@@ -44,7 +44,7 @@ public class DatabaseCreatorTest extends TestCase {
     @Test(expected = DatabaserException.class)
     public void shouldThrowException() throws IOException, DatabaserException, SQLException {
         File dbDir = this.temp.newFolder("db Dir");
-        IServerRunner runner = new ServerRunner(3456);
+        IServerRunner runner = new ServerRunner(3456, "myApp");
         runner.enableRunForce();
         runner.setServerDir(dbDir);
         runner.start();

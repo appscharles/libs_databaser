@@ -25,7 +25,7 @@ public class H2PermissionValidatorTest extends TestCase {
     @Test
     public void shouldAccessToDatabase() throws IOException, DatabaserException {
         File dBDir = this.temp.newFolder("dBDir_shouldAccessToDatabase");
-        IServerRunner runner = new ServerRunner(13523);
+        IServerRunner runner = new ServerRunner(13523, "myApp");
         runner.enableRunForce();
         runner.setServerDir(dBDir);
         runner.start();

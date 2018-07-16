@@ -31,7 +31,7 @@ public class H2ServerLaunchedValidatorTest extends TestCase {
         Assert.assertFalse(ServerRunningValidator.isRunning("tcp://localhost:" + port));
         File serverDir = this.temp.newFolder("serverDir");
         new WinKillManager().killCommandLineContains(serverDir.getAbsolutePath().replace("\\", "\\\\"));
-        IServerRunner runner = new ServerRunner(3421);
+        IServerRunner runner = new ServerRunner(3421, "myApp");
         runner.enableRunForce();
         runner.setServerDir(serverDir);
         runner.start();
@@ -51,7 +51,7 @@ public class H2ServerLaunchedValidatorTest extends TestCase {
     public void shouldValidateH2ServerLaunchedWithJar() throws IOException, DatabaserException, InterruptedException, ProcesserException {
         File serverDir = this.temp.newFolder("serverDir");
         Integer port = 3422;
-        IServerRunner runner = new ServerRunner(port);
+        IServerRunner runner = new ServerRunner(port, "myApp");
         runner.enableRunForce();
         runner.setServerDir(serverDir);
         runner.start();
