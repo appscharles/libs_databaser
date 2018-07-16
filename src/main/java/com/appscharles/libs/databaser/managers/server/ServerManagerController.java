@@ -14,7 +14,6 @@ import com.appscharles.libs.databaser.managers.server.business.services.ToggleAu
 import com.appscharles.libs.dialoger.factories.ExceptionDialogFactory;
 import com.appscharles.libs.fxer.controllers.AbstractControllerFX;
 import com.appscharles.libs.reger.exceptions.RegerException;
-import com.appscharles.libs.reger.validators.AutostartUserValidator;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -148,6 +147,9 @@ public class ServerManagerController extends AbstractControllerFX {
 
     @Override
     public void onShown(WindowEvent event) {
+        if (this.serverManagerConfiguration.getTest()){
+            newDatabase();
+        }
         this.tableDatabasesManager.loadAvailableDatabases();
     }
 

@@ -25,6 +25,10 @@ public class ServerManager {
         stageFactory.setController(new ServerManagerController(serverManagerConfiguration));
         FXStage stage = stageFactory.create();
         stage.setResizable(false);
-        stage.showAndWaitFX();
+        if (serverManagerConfiguration.getTest()){
+            stage.showFX();
+        } else {
+            stage.showAndWaitFX();
+        }
     }
 }

@@ -25,7 +25,7 @@ public class ToggleAutomationStart {
 
     public void toggleAutomationStart() throws RegerException {
         if (this.serverManagerController.checkboxAutomationStartServerWithSystem.isSelected()){
-            AutostartCreator.create(this.serverManagerController.serverManagerConfiguration.getAppName()+ "_h2database.jar", new File(this.serverManagerController.serverManagerConfiguration.getServerDir(), "h2database.bat"), this.serverManagerController.serverRunnerManager.serverRunner.getCommand());
+            AutostartCreator.create(this.serverManagerController.serverManagerConfiguration.getAppName()+ "_h2database.jar", new File(this.serverManagerController.serverManagerConfiguration.getServerDir(), this.serverManagerController.serverManagerConfiguration.getAppName()+ "_h2database.bat"), "@echo off" + System.lineSeparator()  + "start jawaw -jar " +  this.serverManagerController.serverRunnerManager.serverRunner.getCommand());
         } else {
             AutostartUserRemover.remove(this.serverManagerController.serverManagerConfiguration.getAppName() + "_h2database.jar");
         }

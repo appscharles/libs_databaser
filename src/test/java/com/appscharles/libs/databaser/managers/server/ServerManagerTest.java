@@ -28,6 +28,8 @@ public class ServerManagerTest extends TestCase {
         File serverDir = new File("E:\\dbs");
         new WinKillManager().killCommandLineContains("serverDir_shouldRunWindow");
         Integer port = 1452;
-        ServerManager.launch(new ServerManagerConfiguration(port, "myApp", serverDir));
+        ServerManagerConfiguration config = new ServerManagerConfiguration(port, "myApp", serverDir);
+        config.setTest(true);
+        ServerManager.launch(config);
     }
 }

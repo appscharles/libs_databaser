@@ -28,7 +28,7 @@ public class NewDatabaseService {
 
     public void newDatabase() throws DatabaserException {
         try {
-            NewDatabaseFields newDatabaseFields = NewDatabase.launch();
+            NewDatabaseFields newDatabaseFields = NewDatabase.launch(this.serverManagerController.serverManagerConfiguration);
             if (newDatabaseFields != null){
                 if (H2FileDatabaseExistValidator.exist(newDatabaseFields.getdBName(), this.serverManagerController.serverManagerConfiguration.getServerDir())){
                     Alert alert = AlertFactory.create(Alert.AlertType.WARNING, this.serverManagerController.resourceBundle.getString("view.dialog.warning.title"), this.serverManagerController.resourceBundle.getString("view.dialog.warning.name_database_already_exist")).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build();

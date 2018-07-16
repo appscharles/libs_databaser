@@ -41,13 +41,13 @@ public class ServerRunner extends AbstractServerRunner {
           }
           File h2JarFile = new File(this.serverDir, this.appID + "_h2database.jar");
           new H2JarExtractor().toFile("/com/appscharles/libs/databaser/jars/h2database.jar", h2JarFile);
-          this.command = "java -jar \"" + h2JarFile.getAbsolutePath() +"\"" + H2JarArgumentsConfigurator.getCommandArguments(this.tcpPort, this.webPort,this.serverDir);
+          this.command = "\"" + h2JarFile.getAbsolutePath() +"\"" + H2JarArgumentsConfigurator.getCommandArguments(this.tcpPort, this.webPort,this.serverDir);
 
           if (this.autostart) {
-                AutostartCreator.create(this.appID + "_h2database.jar", new File(this.serverDir, this.appID + "_h2database.bat"), this.command);
+                AutostartCreator.create(this.appID + "_h2database.jar", new File(this.serverDir, this.appID + "_h2database.bat"), "@echo off" + System.lineSeparator()  + "start jawaw -jar " +   this.command);
             }
 
-           Runtime.getRuntime().exec(this.command);
+           Runtime.getRuntime().exec("java -jar " + this.command);
             try {
                 ServerRunningWaiter.waitForRunInLocalhost(this.tcpPort, this.serverRunningTimeout);
             } catch (DatabaserException e1) {

@@ -13,6 +13,8 @@ public class ServerManagerConfiguration {
 
     private Integer serverPort;
 
+    private Boolean test;
+
     /**
      * Instantiates a new Server manager configuration.
      *
@@ -24,6 +26,7 @@ public class ServerManagerConfiguration {
         this.serverPort = serverPort;
         this.appName = appName;
         this.serverDir = serverDir;
+        this.test = false;
     }
 
     /**
@@ -78,5 +81,23 @@ public class ServerManagerConfiguration {
      */
     public void setServerPort(Integer serverPort) {
         this.serverPort = serverPort;
+    }
+
+    /**
+     * Getter for property 'test'.
+     *
+     * @return Value for property 'test'.
+     */
+    public Boolean getTest() {
+        return test;
+    }
+
+    /**
+     * Setter for property 'test'.
+     *
+     * @param test Value to set for property 'test'.
+     */
+    public void setTest(Boolean test) {
+        this.test = test;
     }
 }
