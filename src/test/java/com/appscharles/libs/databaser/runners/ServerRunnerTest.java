@@ -38,7 +38,7 @@ public class ServerRunnerTest extends TestCase {
         runner.start();
         Assert.assertTrue(ServerRunningValidator.isRunning("tcp://localhost:"+ port));
         runner.stop();
-        Assert.assertTrue(AutostartUserValidator.exist("h2database.jar"));
-        AutostartUserRemover.remove("h2database.jar");
+        Assert.assertTrue(AutostartUserValidator.exist("myApp_h2database.jar"));
+        AutostartUserRemover.remove("myApp_h2database.jar");
     }
 }

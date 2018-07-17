@@ -2,6 +2,8 @@ package com.appscharles.libs.databaser.managers.server.business.models;
 
 import javafx.beans.property.*;
 
+import java.io.File;
+
 /**
  * IDE Editor: IntelliJ IDEA
  * <p>
@@ -15,11 +17,15 @@ public class AvailableDatabaseItem {
 
     private final StringProperty databaseName;
 
+    private final ObjectProperty<File> databaseFile;
+
     private final LongProperty size;
 
-    public AvailableDatabaseItem(String databaseName, Long size) {
+    public AvailableDatabaseItem(String databaseName, File databaseFile, Long size) {
         this.databaseName = new SimpleStringProperty(databaseName);
+        this.databaseFile = new SimpleObjectProperty<>(databaseFile);
         this.size = new SimpleLongProperty(size);
+
     }
 
     /**
@@ -42,6 +48,28 @@ public class AvailableDatabaseItem {
      */
     public void setDatabaseName(String databaseName) {
         this.databaseName.set(databaseName);
+    }
+
+    /**
+     * Getter for property 'databaseFilename'.
+     *
+     * @return Value for property 'databaseFilename'.
+     */
+    public File getDatabaseFile() {
+        return databaseFile.get();
+    }
+
+    public ObjectProperty<File> databaseFileProperty() {
+        return databaseFile;
+    }
+
+    /**
+     * Setter for property 'databaseFile'.
+     *
+     * @param databaseFile Value to set for property 'databaseFile'.
+     */
+    public void setDatabaseFile(File databaseFile) {
+        this.databaseFile.set(databaseFile);
     }
 
     /**

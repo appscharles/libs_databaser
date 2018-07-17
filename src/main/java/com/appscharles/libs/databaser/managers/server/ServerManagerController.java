@@ -17,6 +17,7 @@ import com.appscharles.libs.reger.exceptions.RegerException;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
@@ -86,7 +87,7 @@ public class ServerManagerController extends AbstractControllerFX {
      * The Column options.
      */
     @FXML
-    public TableColumn<AvailableDatabaseItem, Button> columnOptions;
+    public TableColumn<AvailableDatabaseItem, Node> columnOptions;
 
     /**
      * The Server manager configuration.

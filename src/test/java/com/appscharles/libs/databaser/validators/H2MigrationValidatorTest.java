@@ -26,8 +26,9 @@ import java.io.IOException;
 public class H2MigrationValidatorTest extends TestCase {
 
     @Test
-    public void shouldValidDatabase() throws IOException, DatabaserException {
+    public void shouldValidDatabase() throws IOException, DatabaserException, ProcesserException {
         File dBDir = this.temp.newFolder("dBDir_shouldIsNotValidDatabase");
+        new WinKillManager().killCommandLineContains("dBDir_shouldIsNotValidDatabase");
         IServerRunner runner = new ServerRunner(12423, "myApp");
         runner.enableRunForce();
         runner.setServerDir(dBDir);

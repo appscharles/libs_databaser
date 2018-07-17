@@ -9,6 +9,10 @@
   -fx-alignment: CENTER-LEFT;
 }
 
-.table-column .button {
+.table-column .menu-button {
     -fx-font-size: 9pt;
+}
+
+.table-column .menu-item .label {
+    -fx-font-size: 10pt;
 }

@@ -27,6 +27,7 @@ public class ServerManager {
         stage.setResizable(false);
         if (serverManagerConfiguration.getTest()){
             stage.showFX();
+            stage.closeFX();
         } else {
             stage.showAndWaitFX();
         }

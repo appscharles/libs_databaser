@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Level;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * IDE Editor: IntelliJ IDEA
@@ -23,13 +24,14 @@ import java.io.File;
 public class ServerManagerTest extends TestCase {
 
     @Test
-    public void shouldRunWindow() throws FxerException, ProcesserException {
+    public void shouldRunWindow() throws FxerException, ProcesserException, IOException {
         new Log4j2Console(Level.TRACE).config();
-        File serverDir = new File("E:\\dbs");
+      //  File serverDir = this.temp.newFolder("serverDir_shouldRunWindow");
+       File serverDir = new File("E:\\dbs");
         new WinKillManager().killCommandLineContains("serverDir_shouldRunWindow");
         Integer port = 1452;
         ServerManagerConfiguration config = new ServerManagerConfiguration(port, "myApp", serverDir);
-        config.setTest(true);
+        config.setTest(false);
         ServerManager.launch(config);
     }
 }
