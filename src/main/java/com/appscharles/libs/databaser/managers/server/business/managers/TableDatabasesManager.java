@@ -70,11 +70,11 @@ public class TableDatabasesManager {
             return;
         }
         for(File file : this.serverManagerController.serverManagerConfiguration.getServerDir().listFiles()) {
-            if(file.getName().endsWith(".mv.db") || file.getName().endsWith(".h2.db")){
+            if(file.getName().endsWith(".mv.db")){
                 if (file.getName().startsWith("isRunning.")){
                     continue;
                 }
-                String dBName = file.getName().replace(".mv.db", "").replace(".h2.db","");
+                String dBName = file.getName().replace(".mv.db", "");
                 this.serverManagerController.availableDatabases.add(new AvailableDatabaseItem(dBName,file, file.length()));
             }
         }

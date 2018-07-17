@@ -36,6 +36,11 @@ public class NewDatabaseValidator {
                     .getString("view.dialog.warning.entered_passwords_are_different")).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
             return false;
         }
+        if (user.matches("[a-zA-Z]+") == false){
+            AlertFactory.create(Alert.AlertType.WARNING, this.newDatabaseController.resourceBundle.getString("view.dialog.warning.title"), this.newDatabaseController.resourceBundle
+                    .getString("view.dialog.warning.only_contain_letters")).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
+            return false;
+        }
         return true;
     }
 }

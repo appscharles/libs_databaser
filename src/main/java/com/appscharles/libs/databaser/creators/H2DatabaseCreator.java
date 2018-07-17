@@ -34,6 +34,9 @@ public class H2DatabaseCreator implements IDatabaseCreator {
     }
 
     public void create() throws DatabaserException {
+        if (this.username.matches("[a-zA-Z]+") == false){
+            throw new DatabaserException("Username can only contain letters. [0011-000]");
+        }
         if (ServerRunningValidator.isRunning(this.databaseUrl) == false){
             throw new DatabaserException("H2 server is not launched in: " + URLServerExtractor.extract(this.databaseUrl) + " [0004-001]");
         }

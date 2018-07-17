@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <padding>
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
    </padding>
@@ -25,8 +25,8 @@
             </Label>
             <GridPane hgap="5.0">
               <columnConstraints>
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="140.0" prefWidth="140.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -38,11 +38,11 @@
                   <Label text="%view.label.database_name" />
                   <Label text="%view.label.user" GridPane.rowIndex="1" />
                   <Label text="%view.label.password" GridPane.rowIndex="2" />
-                  <TextField fx:id="fieldName" minWidth="140.0" promptText="%view.text_field_prompt.database_name" GridPane.columnIndex="1" />
-                  <TextField fx:id="fieldUser" minWidth="140.0" promptText="%view.text_field_prompt.user" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="fieldName" promptText="%view.text_field_prompt.database_name" GridPane.columnIndex="1" />
+                  <TextField fx:id="fieldUser" promptText="%view.text_field_prompt.user" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="%view.label.confirm_password" GridPane.rowIndex="3" />
-                  <PasswordField fx:id="fieldPassword" minWidth="140.0" promptText="%view.text_field_prompt.password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <PasswordField fx:id="fieldConfirmPassword" minWidth="140.0" promptText="%view.text_field_prompt.confirm_password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <PasswordField fx:id="fieldPassword" promptText="%view.text_field_prompt.password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <PasswordField fx:id="fieldConfirmPassword" promptText="%view.text_field_prompt.confirm_password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
          </children>

@@ -37,6 +37,9 @@ public class H2FileDatabaseCreator implements IDatabaseCreator {
     }
 
     public void create() throws DatabaserException {
+        if (this.username.matches("[a-zA-Z]+") == false){
+            throw new DatabaserException("Username can only contain letters. [0011-000]");
+        }
         if (H2FileDatabaseExistValidator.exist(this.dBName, this.serverDir)){
             throw new DatabaserException("File h2 database not created, because it is exist. [0009-000]");
         }
