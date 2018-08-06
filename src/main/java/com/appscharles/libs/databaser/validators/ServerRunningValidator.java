@@ -38,7 +38,7 @@ public class ServerRunningValidator {
             if (e.getMessage().contains("[90067")){
                 return false;
             }
-            logger.debug(e);
+            logger.debug(e, e);
             return false;
         }
     }

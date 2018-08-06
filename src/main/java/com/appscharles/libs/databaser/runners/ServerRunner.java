@@ -1,8 +1,8 @@
 package com.appscharles.libs.databaser.runners;
 
-import com.appscharles.libs.databaser.configurators.H2JarArgumentsConfigurator;
+import com.appscharles.libs.databaser.configurators.JarArgumentsConfigurator;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
-import com.appscharles.libs.databaser.extractors.H2JarExtractor;
+import com.appscharles.libs.databaser.extractors.ResourceExtractor;
 import com.appscharles.libs.databaser.validators.PortUsingValidator;
 import com.appscharles.libs.databaser.validators.ServerRunningValidator;
 import com.appscharles.libs.databaser.waiters.ServerRunningWaiter;
@@ -40,8 +40,8 @@ public class ServerRunner extends AbstractServerRunner {
               throw new DatabaserException("Port " + this.tcpPort + " is using [0006-001]");
           }
           File h2JarFile = new File(this.serverDir, this.appID + "_h2database.jar");
-          new H2JarExtractor().toFile("/com/appscharles/libs/databaser/jars/h2database.jar", h2JarFile);
-          this.command = "\"" + h2JarFile.getAbsolutePath() +"\"" + H2JarArgumentsConfigurator.getCommandArguments(this.tcpPort, this.webPort,this.serverDir);
+          new ResourceExtractor().toFile("/com/appscharles/libs/databaser/jars/h2database.jar", h2JarFile, true);
+          this.command = "\"" + h2JarFile.getAbsolutePath() +"\"" + JarArgumentsConfigurator.getCommandArguments(this.tcpPort, this.webPort,this.serverDir);
 
           if (this.autostart) {
                 AutostartCreator.create(this.appID + "_h2database.jar", new File(this.serverDir, this.appID + "_h2database.bat"), "@echo off" + System.lineSeparator()  + "start jawaw -jar " +   this.command);

@@ -28,7 +28,7 @@ public class PortUsingValidator {
             new ServerSocket(port).close();
             return false;
         } catch(IOException e) {
-            logger.debug(e);
+            logger.debug(e, e);
             return true;
         }
     }

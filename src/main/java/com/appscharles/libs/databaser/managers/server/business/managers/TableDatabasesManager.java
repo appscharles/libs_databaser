@@ -1,15 +1,15 @@
 package com.appscharles.libs.databaser.managers.server.business.managers;
 
+import com.appscharles.libs.databaser.converters.BytesRepresentationConverter;
 import com.appscharles.libs.databaser.managers.server.ServerManagerController;
-import com.appscharles.libs.databaser.managers.server.business.converters.BytesRepresentationConverter;
 import com.appscharles.libs.databaser.managers.server.business.models.AvailableDatabaseItem;
+import com.appscharles.libs.databaser.managers.server.business.services.*;
+import com.appscharles.libs.fxer.builders.MenuButtonBuilder;
 import com.appscharles.libs.fxer.tables.cells.UniversalTableCell;
 import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 
@@ -17,8 +17,6 @@ import java.io.File;
  * The type Table databases manager.
  */
 public class TableDatabasesManager {
-
-    private static final Logger logger = LogManager.getLogger(ServerManagerController.class);
 
     /**
      * The Server manager controller.
@@ -53,7 +51,21 @@ public class TableDatabasesManager {
             return new Label(BytesRepresentationConverter.convert(size));
         }));
         this.serverManagerController.columnOptions.setCellFactory(new UniversalTableCell<AvailableDatabaseItem, Node>().forTableColumn((Node size, AvailableDatabaseItem availableDatabaseItem) ->{
-           return new MenuOptionsManager(this.serverManagerController, availableDatabaseItem).build();
+            MenuButtonBuilder builder = MenuButtonBuilder.create(this.serverManagerController.resourceBundle.getString("view.button.options"))
+                    .addMenuItem(this.serverManagerController.resourceBundle.getString("view.menu_button.backup"), (actionEvent)->{
+                        new BackupService(this.serverManagerController, actionEvent, availableDatabaseItem).backup();
+                    }).addMenuItem(this.serverManagerController.resourceBundle.getString("view.menu_button.restore"), (actionEvent)->{
+                        new RestoreService(this.serverManagerController, actionEvent, availableDatabaseItem).restore();
+                    }).addMenuItem(this.serverManagerController.resourceBundle.getString("view.menu_button.remove"), (actionEvent)->{
+                        new RemoveService(this.serverManagerController, actionEvent, availableDatabaseItem).remove();
+                    }).addMenuItem(this.serverManagerController.resourceBundle.getString("view.menu_button.change_user"), (actionEvent)->{
+                        new ChangeUserService(this.serverManagerController, actionEvent, availableDatabaseItem).changeUser();
+                    }).addMenuItem(this.serverManagerController.resourceBundle.getString("view.menu_button.change_password"), (actionEvent)->{
+                        new ChangePasswordService(this.serverManagerController, actionEvent, availableDatabaseItem).changePassword();
+                    });
+            builder.getMenuButton().setMaxWidth(Double.MAX_VALUE);
+            builder.getMenuButton().disableProperty().bind(this.serverManagerController.buttonStartServer.disableProperty());
+            return builder.build();
         }));
     }
 

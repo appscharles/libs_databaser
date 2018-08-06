@@ -2,7 +2,7 @@ package com.appscharles.libs.databaser.managers.server.stages.changePassword.val
 
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import com.appscharles.libs.databaser.managers.server.stages.changePassword.ChangePasswordController;
-import com.appscharles.libs.databaser.validators.H2PermissionValidator;
+import com.appscharles.libs.databaser.validators.PermissionValidator;
 import com.appscharles.libs.dialoger.factories.AlertFactory;
 import javafx.scene.control.Alert;
 import org.apache.logging.log4j.LogManager;
@@ -46,7 +46,7 @@ public class ChangePasswordValidator {
                     .getString("view.dialog.warning.entered_passwords_are_different")).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
             return false;
         }
-        if (new H2PermissionValidator("file:" + this.changePasswordController.availableDatabaseItem.getDatabaseFile().getParentFile().getAbsolutePath() + File.separator + dBName, user, oldPassword).isAccess() == false){
+        if (new PermissionValidator("file:" + this.changePasswordController.availableDatabaseItem.getDatabaseFile().getParentFile().getAbsolutePath() + File.separator + dBName, user, oldPassword).isAccess() == false){
             AlertFactory.create(Alert.AlertType.WARNING, this.changePasswordController.resourceBundle.getString("view.dialog.warning.title"), this.changePasswordController.resourceBundle
                     .getString("view.dialog.warning.incorrect_user_or_old_password")).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
             return false;

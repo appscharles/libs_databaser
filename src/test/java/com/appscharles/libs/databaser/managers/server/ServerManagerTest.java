@@ -26,12 +26,11 @@ public class ServerManagerTest extends TestCase {
     @Test
     public void shouldRunWindow() throws FxerException, ProcesserException, IOException {
         new Log4j2Console(Level.TRACE).config();
-      //  File serverDir = this.temp.newFolder("serverDir_shouldRunWindow");
-       File serverDir = new File("E:\\dbs");
+        File serverDir = this.temp.newFolder("serverDir_shouldRunWindow");
         new WinKillManager().killCommandLineContains("serverDir_shouldRunWindow");
-        Integer port = 1452;
+        Integer port = 1499;
         ServerManagerConfiguration config = new ServerManagerConfiguration(port, "myApp", serverDir);
-        config.setTest(false);
+        config.setTest(true);
         ServerManager.launch(config);
     }
 }

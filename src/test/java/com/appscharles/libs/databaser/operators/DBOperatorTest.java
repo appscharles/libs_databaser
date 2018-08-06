@@ -1,6 +1,6 @@
 package com.appscharles.libs.databaser.operators;
 
-import com.appscharles.libs.databaser.builders.TestH2SessionFactoryBuilder;
+import com.appscharles.libs.databaser.builders.TempSessionFactoryBuilder;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import com.appscharles.libs.databaser.factories.ISessionFactory;
 import com.appscharles.libs.databaser.managers.SFManager;
@@ -20,7 +20,7 @@ import org.junit.Test;
 public class DBOperatorTest {
     @Test
     public void shouldGetCustomers() throws DatabaserException {
-        ISessionFactory sessionFactory = TestH2SessionFactoryBuilder.create(5478, "com/appscharles/libs/databaser/programs/tester/dBMigrations", Customer.class).build();
+        ISessionFactory sessionFactory = TempSessionFactoryBuilder.create(5478, "com/appscharles/libs/databaser/programs/tester/dBMigrations", Customer.class).build();
         SFManager.addSessionFactory("databaser5", sessionFactory, true);
         Customer customer = new Customer();
         customer.setName("John");

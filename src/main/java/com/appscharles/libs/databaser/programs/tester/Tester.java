@@ -1,14 +1,14 @@
 package com.appscharles.libs.databaser.programs.tester;
 
-import com.appscharles.libs.databaser.creators.H2DatabaseCreator;
+import com.appscharles.libs.databaser.creators.DatabaseCreator;
 import com.appscharles.libs.databaser.creators.IDatabaseCreator;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
-import com.appscharles.libs.databaser.factories.H2SessionFactory;
+import com.appscharles.libs.databaser.factories.DBSessionFactory;
 import com.appscharles.libs.databaser.factories.ISessionFactory;
-import com.appscharles.libs.databaser.migrators.H2FlyWayMigrator;
+import com.appscharles.libs.databaser.migrators.FlyWayMigrator;
 import com.appscharles.libs.databaser.runners.IServerRunner;
 import com.appscharles.libs.databaser.runners.ServerRunner;
-import com.appscharles.libs.databaser.validators.H2MigrationValidator;
+import com.appscharles.libs.databaser.validators.MigrationValidator;
 import com.appscharles.libs.logger.configurators.Log4j2ConsoleFileRoller;
 import com.appscharles.libs.logger.configurators.Log4jConsole;
 import com.appscharles.libs.processer.managers.WinKillManager;
@@ -52,15 +52,15 @@ public class Tester {
             runner.setServerDir(serverDir);
             runner.enableRunForce();
             runner.start();
-            IDatabaseCreator creator = new H2DatabaseCreator("tcp://localhost:"+ port +"/myDB", "root", "secret");
+            IDatabaseCreator creator = new DatabaseCreator("tcp://localhost:"+ port +"/myDB", "root", "secret");
             creator.create();
-            H2FlyWayMigrator migrator = new H2FlyWayMigrator("tcp://localhost:"+port+"/myDB", "root"  ,"secret",
+            FlyWayMigrator migrator = new FlyWayMigrator("tcp://localhost:"+port+"/myDB", "root"  ,"secret",
                     "com/appscharles/libs/databaser/programs/tester/dBMigrations");
             migrator.migrate();
-            H2MigrationValidator validator = new H2MigrationValidator("tcp://localhost:"+port+"/myDB", "root"  ,"secret",
+            MigrationValidator validator = new MigrationValidator("tcp://localhost:"+port+"/myDB", "root"  ,"secret",
                     "com/appscharles/libs/databaser/programs/tester/dBMigrations");
             validator.isValid();
-            ISessionFactory sessionFactory = new H2SessionFactory("tcp://localhost:" + port + "/myDB", "root", "secret");
+            ISessionFactory sessionFactory = new DBSessionFactory("tcp://localhost:" + port + "/myDB", "root", "secret");
             sessionFactory.addAnnotationClass(Customer.class);
             Session session = sessionFactory.openSession();
             Transaction transaction = session.beginTransaction();

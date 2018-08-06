@@ -1,6 +1,6 @@
 package com.appscharles.libs.databaser.managers.server.stages.changeUser;
 
-import com.appscharles.libs.databaser.changers.H2DatabaseUserChanger;
+import com.appscharles.libs.databaser.changers.DatabaseUserChanger;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import com.appscharles.libs.databaser.managers.server.business.models.AvailableDatabaseItem;
 import com.appscharles.libs.databaser.managers.server.stages.changeUser.validators.ChangeUserValidator;
@@ -56,11 +56,11 @@ public class ChangeUserController extends AbstractControllerFX {
     public void change(){
         try {
             if (new ChangeUserValidator(this).isValid()){
-                H2DatabaseUserChanger.change(this.availableDatabaseItem.getDatabaseFile().getParentFile(), this.availableDatabaseItem.getDatabaseName(), this.fieldUser.getText().trim(), this.fieldPassword.getText().trim(), this.fieldNewUser.getText().trim());
+                DatabaseUserChanger.change(this.availableDatabaseItem.getDatabaseFile().getParentFile(), this.availableDatabaseItem.getDatabaseName(), this.fieldUser.getText().trim(), this.fieldPassword.getText().trim(), this.fieldNewUser.getText().trim());
                 this.fXStage.close();
             }
         } catch (DatabaserException e) {
-            logger.error(e);
+            logger.error(e, e);
             ExceptionDialogFactory.create(this.resourceBundle.getString("view.dialog.exception.title"), e.getMessage(), e).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
         }
     }

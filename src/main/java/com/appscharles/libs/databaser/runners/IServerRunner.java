@@ -5,7 +5,7 @@ import com.appscharles.libs.databaser.exceptions.DatabaserException;
 /**
  * The interface Server runner.
  */
-public interface IServerRunner extends IWebConsolable, IServerDirectionable, IServerAutostartable, IServerTimeoutable, IServerRunForceable, IServerCommandable {
+public interface IServerRunner extends IWebConsolable, IServerSetDirectionable, IServerAutostartable, IServerTimeoutable, IServerRunForceable, IServerCommandable {
 
     /**
      * Run.

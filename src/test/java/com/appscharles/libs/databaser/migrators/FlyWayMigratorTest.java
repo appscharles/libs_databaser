@@ -1,7 +1,7 @@
 package com.appscharles.libs.databaser.migrators;
 
 import com.appscharles.libs.databaser.TestCase;
-import com.appscharles.libs.databaser.creators.H2DatabaseCreator;
+import com.appscharles.libs.databaser.creators.DatabaseCreator;
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import com.appscharles.libs.databaser.runners.IServerRunner;
 import com.appscharles.libs.databaser.runners.ServerRunner;
@@ -32,9 +32,9 @@ public class FlyWayMigratorTest extends TestCase {
         runner.enableRunForce();
         runner.setServerDir(dBDir);
         runner.start();
-        H2DatabaseCreator creator = new H2DatabaseCreator("tcp://localhost:"+12323+"/myDB", "root", "secret");
+        DatabaseCreator creator = new DatabaseCreator("tcp://localhost:"+12323+"/myDB", "root", "secret");
         creator.create();
-        H2FlyWayMigrator migrator = new H2FlyWayMigrator("tcp://localhost:"+12323+"/myDB", "root"  ,"secret",
+        FlyWayMigrator migrator = new FlyWayMigrator("tcp://localhost:"+12323+"/myDB", "root"  ,"secret",
                 "com/appscharles/libs/databaser/programs/tester/dBMigrations");
         migrator.migrate();
         runner.stop();
@@ -48,7 +48,7 @@ public class FlyWayMigratorTest extends TestCase {
         runner.enableRunForce();
         runner.setServerDir(dBDir);
         runner.start();
-        H2FlyWayMigrator migrator = new H2FlyWayMigrator("tcp://localhost:"+12333+"/myDB", "root"  ,"secret",
+        FlyWayMigrator migrator = new FlyWayMigrator("tcp://localhost:"+12333+"/myDB", "root"  ,"secret",
                 "com/appscharles/libs/databaser/programs/tester/dbmigration");
         migrator.migrate();
         runner.stop();

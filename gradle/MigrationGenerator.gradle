@@ -29,10 +29,13 @@ def migrationConfig = [
 
 //Define tasks
 task generateMigration(dependsOn: ['generateDdl'], group:'project'){
+    gradle.taskGraph.whenReady { graph->
+        if (graph.hasTask(':generateMigration')){
+            test.enabled = false
+        }
+    }
     outputs.upToDateWhen { false }
-    generateMigration.dependsOn.remove(test)
     generateMigration.shouldRunAfter generateDdl
-    //test.enabled = false
 }
 
 // Business

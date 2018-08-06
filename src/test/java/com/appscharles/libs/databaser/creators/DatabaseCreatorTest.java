@@ -34,7 +34,7 @@ public class DatabaseCreatorTest extends TestCase {
         runner.enableRunForce();
         runner.setServerDir(dbDir);
         runner.start();
-        IDatabaseCreator creator = new H2DatabaseCreator("tcp://localhost:"+port+"/myDB", "root", "secret");
+        IDatabaseCreator creator = new DatabaseCreator("tcp://localhost:"+port+"/myDB", "root", "secret");
         creator.create();
         Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost:"+port+"/myDB", "root", "secret");
         connection.close();
@@ -48,7 +48,7 @@ public class DatabaseCreatorTest extends TestCase {
         runner.enableRunForce();
         runner.setServerDir(dbDir);
         runner.start();
-        IDatabaseCreator creator = new H2DatabaseCreator("tcp://localhost:3456/myDB", "root", "secret");
+        IDatabaseCreator creator = new DatabaseCreator("tcp://localhost:3456/myDB", "root", "secret");
         creator.create();
         creator.create();
         runner.stop();

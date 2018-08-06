@@ -40,7 +40,7 @@ public class ChangePasswordService {
         try {
             ChangePassword.launch(this.availableDatabaseItem);
         } catch (FxerException e) {
-            logger.error(e);
+            logger.error(e, e);
             ExceptionDialogFactory.create(this.serverManagerController.resourceBundle.getString("view.dialog.exception.title"), e.getMessage(), e).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
         }
     }

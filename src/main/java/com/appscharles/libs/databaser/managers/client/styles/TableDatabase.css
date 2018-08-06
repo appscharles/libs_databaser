@@ -1,0 +1,18 @@
+.table-row-cell:selected {
+   -fx-background-color: rgb(174, 186, 98);
+}
+.table-row-cell{
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-column {
+  -fx-alignment: CENTER-LEFT;
+}
+
+.table-column .menu-button {
+    -fx-font-size: 9pt;
+}
+
+.table-column .menu-item .label {
+    -fx-font-size: 10pt;
+}

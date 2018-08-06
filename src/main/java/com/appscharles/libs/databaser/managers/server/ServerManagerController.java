@@ -130,7 +130,7 @@ public class ServerManagerController extends AbstractControllerFX {
             this.disableControllersManager.initialize();
 
         } catch (DatabaserException e) {
-            logger.error(e);
+            logger.error(e, e);
             ExceptionDialogFactory.create(this.resourceBundle.getString("view.dialog.exception.title"), e.getMessage(), e).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
 
         }
@@ -141,7 +141,7 @@ public class ServerManagerController extends AbstractControllerFX {
         try {
              this.checkboxesManager.initialize();
         } catch (DatabaserException e) {
-            logger.error(e);
+            logger.error(e, e);
             ExceptionDialogFactory.create(this.resourceBundle.getString("view.dialog.exception.title"), e.getMessage(), e).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
         }
     }
@@ -162,7 +162,7 @@ public class ServerManagerController extends AbstractControllerFX {
         try {
             new NewDatabaseService(this).newDatabase();
         } catch (DatabaserException e) {
-            logger.error(e);
+            logger.error(e, e);
             ExceptionDialogFactory.create(this.resourceBundle.getString("view.dialog.exception.title"), e.getMessage(), e).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
         }
     }
@@ -175,7 +175,7 @@ public class ServerManagerController extends AbstractControllerFX {
         try {
             new StartServerService(this).startServer();
         } catch (DatabaserException e) {
-            logger.error(e);
+            logger.error(e, e);
             ExceptionDialogFactory.create(this.resourceBundle.getString("view.dialog.exception.title"), e.getMessage(), e).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
             this.buttonStartServer.setDisable(true);
         }
@@ -189,7 +189,7 @@ public class ServerManagerController extends AbstractControllerFX {
         try {
             new StopServerService(this).stopServer();
         } catch (DatabaserException e) {
-            logger.error(e);
+            logger.error(e, e);
             ExceptionDialogFactory.create(this.resourceBundle.getString("view.dialog.exception.title"), e.getMessage(), e).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
 
         }
@@ -203,7 +203,7 @@ public class ServerManagerController extends AbstractControllerFX {
         try {
             new ToggleAutomationStart(this).toggleAutomationStart();
         } catch (RegerException e) {
-            logger.error(e);
+            logger.error(e, e);
             ExceptionDialogFactory.create(this.resourceBundle.getString("view.dialog.exception.title"), e.getMessage(), e).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
 
         }

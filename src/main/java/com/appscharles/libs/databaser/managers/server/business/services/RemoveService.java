@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.h2.tools.DeleteDbFiles;
 
 import java.io.File;
 import java.util.Optional;
@@ -48,9 +49,10 @@ public class RemoveService {
                     .getString("view.dialog.confirmation.are_you_sure_remove_database")).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png");
          Optional<ButtonType> result = factory.build().showAndWait();
          if (result.get() == factory.getButtonTypeYes()){
+             DeleteDbFiles.execute(this.availableDatabaseItem.getDatabaseFile().getParentFile().getAbsolutePath(), this.availableDatabaseItem.getDatabaseName(), true);
              for(File file : this.availableDatabaseItem.getDatabaseFile().getParentFile().listFiles()) {
                  if(file.getName().startsWith(this.availableDatabaseItem.getDatabaseName() + ".")){
-                     if (file.delete() == false){
+                     if (file.exists() == false){
                          throw new DatabaserException(this.serverManagerController.resourceBundle.getString("exception.database_can_not_removed"));
                      }
                  }
@@ -60,7 +62,7 @@ public class RemoveService {
              this.serverManagerController.tableDatabasesManager.refresh();
          }
         } catch (DatabaserException e) {
-            logger.error(e);
+            logger.error(e, e);
             ExceptionDialogFactory.create(this.serverManagerController.resourceBundle.getString("view.dialog.exception.title"), e.getMessage(), e).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
         }
     }

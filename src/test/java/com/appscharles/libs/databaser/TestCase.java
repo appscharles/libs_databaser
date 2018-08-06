@@ -8,13 +8,7 @@ import org.junit.Rule;
 import org.junit.rules.TemporaryFolder;
 
 /**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 07.07.2018
- * Time: 17:15
- * Project name: databaser
- *
- * @author Karol Golec karol.itgolo@gmail.com
+ * The type Test case.
  */
 public class TestCase {
 

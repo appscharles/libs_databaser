@@ -57,7 +57,7 @@ public class BackupService {
                         .getString("view.dialog.information.backup_completed_successfully")).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
             }
         } catch (SQLException e) {
-            logger.error(e);
+            logger.error(e, e);
             ExceptionDialogFactory.create(this.serverManagerController.resourceBundle.getString("view.dialog.exception.title"), e.getMessage(), e).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
         }
     }

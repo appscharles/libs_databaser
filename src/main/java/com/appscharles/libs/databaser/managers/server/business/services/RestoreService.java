@@ -54,7 +54,7 @@ public class RestoreService {
                         .getString("view.dialog.information.restore_completed_successfully")).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
             }
         } catch (DbException e) {
-            logger.error(e);
+            logger.error(e, e);
             ExceptionDialogFactory.create(this.serverManagerController.resourceBundle.getString("view.dialog.exception.title"), this.serverManagerController.resourceBundle.getString("view.dialog.exception.content_text.can_not_restore_database"), e).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
         }
     }
