@@ -27,10 +27,10 @@ public class ClientManagerTest extends TestCase {
     public void shouldRunWindow() throws FxerException, ProcesserException, IOException {
         new Log4j2Console(Level.TRACE).config();
         File serverDir = this.temp.newFolder("serverDir_shouldRunWindow");
-       // File serverDir = new File("E:\\dbs");
+        //File serverDir = new File("E:\\dbs");
         new WinKillManager().killCommandLineContains("serverDir_shouldRunWindow");
         Integer port = 1452;
-        ClientManagerConfiguration config = new ClientManagerConfiguration(port, "myApp", serverDir, "localhost", "", "", "", "com/appscharles/libs/databaser/programs/tester/dBMigrations");
+        ClientManagerConfiguration config = new ClientManagerConfiguration(port, "myApp", serverDir, "localhost", "", "", "", "com/appscharles/libs/databaser/programs/tester/dBMigrations", null, null, null);
         config.setTest(true);
         ClientManager.launch(config);
     }

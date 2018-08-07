@@ -177,7 +177,7 @@ public class ServerManagerController extends AbstractControllerFX {
         } catch (DatabaserException e) {
             logger.error(e, e);
             ExceptionDialogFactory.create(this.resourceBundle.getString("view.dialog.exception.title"), e.getMessage(), e).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
-            this.buttonStartServer.setDisable(true);
+            this.buttonStartServer.setDisable(false);
         }
     }
 

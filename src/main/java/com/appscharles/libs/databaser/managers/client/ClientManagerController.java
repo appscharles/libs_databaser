@@ -2,6 +2,7 @@ package com.appscharles.libs.databaser.managers.client;
 
 import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import com.appscharles.libs.databaser.managers.client.business.configurations.ClientManagerConfiguration;
+import com.appscharles.libs.databaser.managers.client.business.services.DataRememberService;
 import com.appscharles.libs.databaser.managers.client.business.services.DatabaseConnectService;
 import com.appscharles.libs.databaser.managers.client.business.services.RememberDataLoadService;
 import com.appscharles.libs.databaser.managers.server.ServerManager;
@@ -9,6 +10,7 @@ import com.appscharles.libs.databaser.managers.server.business.configurations.Se
 import com.appscharles.libs.dialoger.factories.ExceptionDialogFactory;
 import com.appscharles.libs.fxer.controllers.AbstractControllerFX;
 import com.appscharles.libs.fxer.exceptions.FxerException;
+import com.appscharles.libs.proper.exceptions.ProperException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -50,6 +52,8 @@ public class ClientManagerController extends AbstractControllerFX {
 
     private DatabaseConnectService databaseConnectService;
 
+    private DataRememberService dataRememberService;
+
     /**
      * Instantiates a new Client manager controller.
      *
@@ -68,6 +72,7 @@ public class ClientManagerController extends AbstractControllerFX {
         RememberDataLoadService rememberDataLoadService = new RememberDataLoadService(this);
         rememberDataLoadService.load();
         this.databaseConnectService = new DatabaseConnectService(this);
+        this.dataRememberService = new DataRememberService(this);
     }
 
     @FXML
@@ -91,9 +96,10 @@ public class ClientManagerController extends AbstractControllerFX {
     public void connect(){
         try {
             if (this.databaseConnectService.connect()){
+                this.dataRememberService.remember();
                 this.getFXStage().close();
             }
-        } catch (DatabaserException e) {
+        } catch (DatabaserException | ProperException e) {
             logger.error(e, e);
             ExceptionDialogFactory.create(this.resourceBundle.getString("view.dialog.exception.title"), e.getMessage(), e).setIconStageResource("/com/appscharles/libs/databaser/managers/client/ClientManagerIcon.png").build().showAndWait();
         }

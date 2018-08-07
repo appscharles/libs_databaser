@@ -1,5 +1,8 @@
 package com.appscharles.libs.databaser.managers.client.business.configurations;
 
+import com.appscharles.libs.databaser.exceptions.DatabaserException;
+import com.appscharles.libs.databaser.exceptions.ThrowingConsumer;
+import com.appscharles.libs.databaser.factories.ISessionFactory;
 import com.appscharles.libs.databaser.managers.configurations.AbstractManagerConfiguration;
 
 import java.io.File;
@@ -19,10 +22,15 @@ public class ClientManagerConfiguration extends AbstractManagerConfiguration {
 
     private String resourceMigrationPath;
 
+    private File fileCryptedProperties;
+
+    private String saltPassword;
+
+    private ThrowingConsumer<ISessionFactory, DatabaserException> sessionFactoryConsumer;
+
     /**
      * Instantiates a new Client manager configuration.
-     *
-     * @param serverPort            the server port
+     *  @param serverPort            the server port
      * @param appName               the app name
      * @param serverDir             the server dir
      * @param rememberServerAddress the remember server address
@@ -30,14 +38,18 @@ public class ClientManagerConfiguration extends AbstractManagerConfiguration {
      * @param rememberUser          the remember user
      * @param rememberPassword      the remember password
      * @param resourceMigrationPath the resource migration path
+     * @param sessionFactoryConsumer
      */
-    public ClientManagerConfiguration(Integer serverPort, String appName, File serverDir, String rememberServerAddress, String rememberDatabaseName, String rememberUser, String rememberPassword, String resourceMigrationPath) {
+    public ClientManagerConfiguration(Integer serverPort, String appName, File serverDir, String rememberServerAddress, String rememberDatabaseName, String rememberUser, String rememberPassword, String resourceMigrationPath, File fileCryptedProperties, String saltPassword, ThrowingConsumer<ISessionFactory, DatabaserException> sessionFactoryConsumer) {
         super(serverPort, appName, serverDir, false);
         this.rememberServerAddress = rememberServerAddress;
         this.rememberDatabaseName = rememberDatabaseName;
         this.rememberUser = rememberUser;
         this.rememberPassword = rememberPassword;
         this.resourceMigrationPath = resourceMigrationPath;
+        this.fileCryptedProperties = fileCryptedProperties;
+        this.saltPassword = saltPassword;
+        this.sessionFactoryConsumer = sessionFactoryConsumer;
     }
 
     /**
@@ -128,5 +140,59 @@ public class ClientManagerConfiguration extends AbstractManagerConfiguration {
      */
     public void setResourceMigrationPath(String resourceMigrationPath) {
         this.resourceMigrationPath = resourceMigrationPath;
+    }
+
+    /**
+     * Getter for property 'fileCryptedProperties'.
+     *
+     * @return Value for property 'fileCryptedProperties'.
+     */
+    public File getFileCryptedProperties() {
+        return fileCryptedProperties;
+    }
+
+    /**
+     * Getter for property 'saltPassword'.
+     *
+     * @return Value for property 'saltPassword'.
+     */
+    public String getSaltPassword() {
+        return saltPassword;
+    }
+
+    /**
+     * Setter for property 'fileCryptedProperties'.
+     *
+     * @param fileCryptedProperties Value to set for property 'fileCryptedProperties'.
+     */
+    public void setFileCryptedProperties(File fileCryptedProperties) {
+        this.fileCryptedProperties = fileCryptedProperties;
+    }
+
+    /**
+     * Setter for property 'saltPassword'.
+     *
+     * @param saltPassword Value to set for property 'saltPassword'.
+     */
+    public void setSaltPassword(String saltPassword) {
+        this.saltPassword = saltPassword;
+    }
+
+    /**
+     * Getter for property 'sessionFactoryConsumer'.
+     *
+     * @return Value for property 'sessionFactoryConsumer'.
+     */
+    public ThrowingConsumer<ISessionFactory, DatabaserException> getSessionFactoryConsumer() {
+        return sessionFactoryConsumer;
+    }
+
+    /**
+     * Setter for property 'sessionFactoryConsumer'.
+     *
+     * @param sessionFactoryConsumer Value to set for property 'sessionFactoryConsumer'.
+     */
+    public void setSessionFactoryConsumer(ThrowingConsumer<ISessionFactory, DatabaserException> sessionFactoryConsumer) {
+        this.sessionFactoryConsumer = sessionFactoryConsumer;
     }
 }
