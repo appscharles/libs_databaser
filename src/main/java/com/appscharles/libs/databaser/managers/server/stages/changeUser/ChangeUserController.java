@@ -5,7 +5,7 @@ import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import com.appscharles.libs.databaser.managers.server.business.models.AvailableDatabaseItem;
 import com.appscharles.libs.databaser.managers.server.stages.changeUser.validators.ChangeUserValidator;
 import com.appscharles.libs.dialoger.factories.ExceptionDialogFactory;
-import com.appscharles.libs.fxer.controllers.AbstractControllerFX;
+import com.appscharles.libs.fxer.controllers.AbstractStageControllerFX;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 /**
  * The type Server manager controller.
  */
-public class ChangeUserController extends AbstractControllerFX {
+public class ChangeUserController extends AbstractStageControllerFX {
 
     private static final Logger logger = LogManager.getLogger(ChangeUserController.class);
 

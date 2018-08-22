@@ -8,7 +8,7 @@ import com.appscharles.libs.databaser.managers.client.business.services.Remember
 import com.appscharles.libs.databaser.managers.server.ServerManager;
 import com.appscharles.libs.databaser.managers.server.business.configurations.ServerManagerConfiguration;
 import com.appscharles.libs.dialoger.factories.ExceptionDialogFactory;
-import com.appscharles.libs.fxer.controllers.AbstractControllerFX;
+import com.appscharles.libs.fxer.controllers.AbstractStageControllerFX;
 import com.appscharles.libs.fxer.exceptions.FxerException;
 import com.appscharles.libs.proper.exceptions.ProperException;
 import javafx.application.Platform;
@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 /**
  * The type Client manager controller.
  */
-public class ClientManagerController extends AbstractControllerFX {
+public class ClientManagerController extends AbstractStageControllerFX {
 
     private static final Logger logger = LogManager.getLogger(ClientManagerController.class);
 

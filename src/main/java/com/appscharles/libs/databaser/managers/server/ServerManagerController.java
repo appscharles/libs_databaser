@@ -12,7 +12,7 @@ import com.appscharles.libs.databaser.managers.server.business.services.StartSer
 import com.appscharles.libs.databaser.managers.server.business.services.StopServerService;
 import com.appscharles.libs.databaser.managers.server.business.services.ToggleAutomationStart;
 import com.appscharles.libs.dialoger.factories.ExceptionDialogFactory;
-import com.appscharles.libs.fxer.controllers.AbstractControllerFX;
+import com.appscharles.libs.fxer.controllers.AbstractStageControllerFX;
 import com.appscharles.libs.reger.exceptions.RegerException;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
 /**
  * The type Server manager controller.
  */
-public class ServerManagerController extends AbstractControllerFX {
+public class ServerManagerController extends AbstractStageControllerFX {
 
     private static final Logger logger = LogManager.getLogger(ServerManagerController.class);
 
@@ -203,6 +203,7 @@ public class ServerManagerController extends AbstractControllerFX {
         try {
             new ToggleAutomationStart(this).toggleAutomationStart();
         } catch (RegerException e) {
+            this.checkboxAutomationStartServerWithSystem.setSelected(this.checkboxAutomationStartServerWithSystem.isSelected());
             logger.error(e, e);
             ExceptionDialogFactory.create(this.resourceBundle.getString("view.dialog.exception.title"), e.getMessage(), e).setIconStageResource("/com/appscharles/libs/databaser/managers/server/ServerManagerIcon.png").build().showAndWait();
 

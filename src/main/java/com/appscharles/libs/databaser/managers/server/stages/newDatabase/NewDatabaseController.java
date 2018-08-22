@@ -2,7 +2,7 @@ package com.appscharles.libs.databaser.managers.server.stages.newDatabase;
 
 import com.appscharles.libs.databaser.managers.server.stages.newDatabase.business.models.NewDatabaseFields;
 import com.appscharles.libs.databaser.managers.server.stages.newDatabase.business.validators.NewDatabaseValidator;
-import com.appscharles.libs.fxer.controllers.AbstractControllerFX;
+import com.appscharles.libs.fxer.controllers.AbstractStageControllerFX;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 /**
  * The type Server manager controller.
  */
-public class NewDatabaseController extends AbstractControllerFX {
+public class NewDatabaseController extends AbstractStageControllerFX {
 
     private static final Logger logger = LogManager.getLogger(NewDatabaseController.class);
 

@@ -14,7 +14,7 @@ plugins {
 }
 
 group 'com.appscharles.libs'
-version '1.0.0.0-dev12'
+version '1.0.0.0-dev14'
 
 sourceCompatibility = 1.8
 
@@ -43,7 +43,7 @@ dependencies {
     compile group: 'com.appscharles.libs', name: 'dialoger', version: '1.0.0.0-dev5'
     compile group: 'com.appscharles.libs', name: 'processer', version: '1.0.0.0-dev6'
     compile group: 'com.appscharles.libs', name: 'ioer', version: '1.0.0.0-dev16'
-    compile group: 'com.appscharles.libs', name: 'fxer', version: '1.0.0.0-dev15'
+    compile group: 'com.appscharles.libs', name: 'fxer', version: '1.0.0.0-dev18'
     compile group: 'com.appscharles.libs', name: 'logger', version: '1.0.0.0-dev20'
     compile group: 'com.appscharles.libs', name: 'jarer', version: '1.0.0.0-dev17'
     compile group: 'com.appscharles.libs', name: 'reger', version: '1.0.0.0-dev1'
