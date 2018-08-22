@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The type Session factory manager.
+ * The type Sf manager.
  */
 public class SFManager {
 
@@ -19,11 +19,11 @@ public class SFManager {
             sessionFactoryContainer.setDefaultSessionFactory(false);
         });
     }
-    
+
     /**
      * Add session factory.
      *
-     * @param name                  the name
+     * @param sessionFactoryName    the session factory name
      * @param sessionFactory        the session factory
      * @param defaultSessionFactory the default session factory
      * @throws DatabaserException the databaser exception
@@ -39,9 +39,9 @@ public class SFManager {
     }
 
     /**
-     * Gets default.
+     * Gets default session factory.
      *
-     * @return the default
+     * @return the default session factory
      * @throws DatabaserException the databaser exception
      */
     public static ISessionFactory getDefaultSessionFactory() throws DatabaserException {
@@ -53,6 +53,12 @@ public class SFManager {
         throw new DatabaserException("Not found default session factory.");
     }
 
+    /**
+     * Gets default session factory name.
+     *
+     * @return the default session factory name
+     * @throws DatabaserException the databaser exception
+     */
     public static String getDefaultSessionFactoryName() throws DatabaserException {
         for (Map.Entry<String, SessionFactoryContainer> entry : sessionFactoryContainers.entrySet()) {
             if (entry.getValue().getDefaultSessionFactory()) {
@@ -63,9 +69,9 @@ public class SFManager {
     }
 
     /**
-     * Get session factory.
+     * Gets session factory.
      *
-     * @param name the name
+     * @param sessionFactoryName the session factory name
      * @return the session factory
      * @throws DatabaserException the databaser exception
      */
@@ -79,9 +85,9 @@ public class SFManager {
     }
 
     /**
-     * Sets default.
+     * Sets default session factory.
      *
-     * @param name the name
+     * @param sessionFactoryName the session factory name
      * @throws DatabaserException the databaser exception
      */
     public synchronized static void setDefaultSessionFactory(String sessionFactoryName) throws DatabaserException {
@@ -96,9 +102,9 @@ public class SFManager {
     }
 
     /**
-     * Close.
+     * Close session factory.
      *
-     * @param name the name
+     * @param sessionFactoryName the session factory name
      * @throws DatabaserException the databaser exception
      */
     public static void closeSessionFactory(String sessionFactoryName) throws DatabaserException {
@@ -112,7 +118,7 @@ public class SFManager {
     }
 
     /**
-     * Close default.
+     * Close default session factory.
      *
      * @throws DatabaserException the databaser exception
      */
@@ -127,7 +133,7 @@ public class SFManager {
     }
 
     /**
-     * Close.
+     * Close session factories.
      *
      * @throws DatabaserException the databaser exception
      */

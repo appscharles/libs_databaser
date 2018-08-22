@@ -14,7 +14,7 @@ plugins {
 }
 
 group 'com.appscharles.libs'
-version '1.0.0.0-dev14'
+version '1.0.0.0-dev15'
 
 sourceCompatibility = 1.8
 
@@ -35,6 +35,7 @@ repositories {
 
 dependencies {
     compile group: 'com.github.v-ladynev', name: 'fluent-hibernate-core', version: '0.3.1'
+    compile group: 'org.hibernate', name: 'hibernate-c3p0', version: '5.3.2.Final'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.3.2.Final'
     compile group: 'com.github.pcj', name: 'google-options', version: '1.0.0'
     compile group: 'org.flywaydb', name: 'flyway-core', version: '5.1.4'
