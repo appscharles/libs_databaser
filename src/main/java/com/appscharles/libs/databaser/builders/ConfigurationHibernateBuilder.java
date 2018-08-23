@@ -7,7 +7,7 @@ import org.hibernate.cfg.Environment;
 import java.util.Properties;
 
 /**
- * The type Configuration hibernate builder.
+ * The type H 2 configuration hibernate builder.
  */
 public class ConfigurationHibernateBuilder {
 
@@ -24,14 +24,14 @@ public class ConfigurationHibernateBuilder {
     }
 
     /**
-     * Create configuration hibernate builder.
+     * Create h 2 configuration hibernate builder.
      *
      * @param databaseURL the database url
      * @param user        the user
      * @param password    the password
-     * @return the configuration hibernate builder
+     * @return the h 2 configuration hibernate builder
      */
-    public static ConfigurationHibernateBuilder create(String databaseURL, String user, String password) {
+    public static ConfigurationHibernateBuilder create(String databaseURL , String user, String password){
         ConfigurationHibernateBuilder instance = new ConfigurationHibernateBuilder();
         instance.databaseURL = databaseURL;
         instance.user = user;
@@ -44,16 +44,18 @@ public class ConfigurationHibernateBuilder {
      *
      * @return the configuration
      */
-    public Configuration build() {
+    public Configuration build(){
         Properties props = new Properties();
         props.put(Environment.DRIVER, "org.h2.Driver");
-        props.put(Environment.URL, "jdbc:h2:" + this.databaseURL + ";IFEXISTS=TRUE");
+        props.put(Environment.URL, "jdbc:h2:"+ this.databaseURL +";IFEXISTS=TRUE");
         props.put(Environment.USER, this.user);
         props.put(Environment.PASS, this.password);
         props.put(Environment.DIALECT, "org.hibernate.dialect.H2Dialect");
-        if (HibernateC3P0Configurator.getProperties() != null) {
+
+        if (HibernateC3P0Configurator.getProperties() != null){
             props.putAll(HibernateC3P0Configurator.getProperties());
         }
+
         this.configuration.addProperties(props);
         return this.configuration;
     }

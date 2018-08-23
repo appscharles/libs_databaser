@@ -99,12 +99,24 @@ public class ServerManagerController extends AbstractStageControllerFX {
      */
     public ObservableList<AvailableDatabaseItem> availableDatabases;
 
+    /**
+     * The Table databases manager.
+     */
     public TableDatabasesManager tableDatabasesManager;
 
+    /**
+     * The Disable controllers manager.
+     */
     public DisableControllersManager disableControllersManager;
 
+    /**
+     * The Server runner manager.
+     */
     public ServerRunnerManager serverRunnerManager;
 
+    /**
+     * The Checkboxes manager.
+     */
     public CheckboxesManager checkboxesManager;
 
     /**
