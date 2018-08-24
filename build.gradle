@@ -14,7 +14,7 @@ plugins {
 }
 
 group 'com.appscharles.libs'
-version '1.0.0.0-dev16'
+version '1.0.0.0-dev17'
 
 sourceCompatibility = 1.8
 

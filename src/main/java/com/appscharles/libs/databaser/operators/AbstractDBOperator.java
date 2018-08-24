@@ -57,7 +57,9 @@ public abstract class AbstractDBOperator {
      */
     public static <T> T get(Class entityClass, Serializable id, String sessionFactoryName) throws DatabaserException {
         Session session = SFManager.getSessionFactory(sessionFactoryName).openSession();
-        return (T) session.get(entityClass, id);
+        T result = (T) session.get(entityClass, id);
+        session.close();
+        return result;
     }
 
     /**
@@ -76,7 +78,9 @@ public abstract class AbstractDBOperator {
         Root<T> root = criteriaQuery.from(entityClass);
         criteriaQuery.select(root);
         Query<T> q = session.createQuery(criteriaQuery);
-        return (T) q.getResultList();
+        T results = (T) q.getResultList();
+        session.close();
+        return results;
     }
 
     /**
