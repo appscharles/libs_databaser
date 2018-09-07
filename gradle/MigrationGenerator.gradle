@@ -1,51 +1,25 @@
 /****************************************************************************
  ***************************** IMPLEMENTATION *******************************
- 1. Add to project file `build.gradle`:
-
- buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.devskiller.jpa2ddl:jpa2ddl-gradle-plugin:0.9.12'
-    }
- }
- apply plugin: 'com.devskiller.jpa2ddl'
-
- 2. Apply this file to `build.gradle` by:
+ 1. Apply this file to `build.gradle` by:
  apply from: 'gradle/MigrationGenerator.gradle'
 
- 3. Configuration Databaser in below defined 'migrationConfig'
+ 2. Configuration Migration Generator in below defined 'migrationConfig'
 
- 4. Generate migration by task 'generateMigration'
+ 2. Generate migration by task 'generateMigration'
  ****************************************************************************/
 
 // Configuration
 def migrationConfig = [
-        toDir: "${projectDir}/src/main/java/com/appscharles/libs/databaser/programs/tester/dBMigrations",
-        hibernateDialect: "org.hibernate.dialect.H2Dialect",
-        scanPackages: ["com.appscharles.libs.databaser"]
+        migrationsDir : "${projectDir}/src/main/java/com/appscharles/libs/databaser/programs/tester/dBMigrations",
+        packagesToScan: "com.appscharles.libs.databaser"
 ]
 
 //Define tasks
-task generateMigration(dependsOn: ['generateDdl'], group:'project'){
-    gradle.taskGraph.whenReady { graph->
-        if (graph.hasTask(':generateMigration')){
-            test.enabled = false
-        }
-    }
-    outputs.upToDateWhen { false }
-    generateMigration.shouldRunAfter generateDdl
-}
-
-// Business
-jpa2ddl {
-    packages = migrationConfig.scanPackages
-    outputPath = File.newInstance(migrationConfig.toDir)
-    formatOutput = true
-    action = 'UPDATE'
-    delimiter = ';'
-    jpaProperties = [
-            'hibernate.dialect': migrationConfig.hibernateDialect
-    ]
+task generateMigration(type: JavaExec, group: 'project') {
+    systemProperties = System.getProperties()
+    main = 'com.appscharles.libs.databaser.projects.MigrationGenerateProject'
+    classpath = sourceSets.main.runtimeClasspath
+    System.setProperty('migration_generate_packages_to_scan', migrationConfig.packagesToScan)
+    System.setProperty('migration_generate_migrations_dir', migrationConfig.migrationsDir)
+    systemProperties = System.getProperties()
 }

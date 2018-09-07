@@ -10,6 +10,6 @@ package com.appscharles.libs.databaser.exceptions;
  * @author Karol Golec karol.itgolo@gmail.com
  */
 @FunctionalInterface
-public interface ThrowingConsumer<T, E extends Exception> {
-    void accept(T t) throws E, DatabaserException;
+public interface ThrowingConsumer<T, E extends Throwable> {
+    void accept(T t) throws E;
 }

@@ -18,6 +18,9 @@ public class ConnectionValidator {
      * @throws DatabaserException the databaser exception
      */
     public static Boolean isValid(String databaseUrl, String user, String password, String resourceMigrationPath) throws DatabaserException {
+       if (databaseUrl.isEmpty() || user.isEmpty()){
+           return false;
+       }
         if (ServerRunningValidator.isRunning(databaseUrl) == false) {
             return false;
         }

@@ -1,6 +1,5 @@
 package com.appscharles.libs.databaser.migrators;
 
-import com.appscharles.libs.databaser.exceptions.DatabaserException;
 import org.flywaydb.core.Flyway;
 
 /**
@@ -23,7 +22,7 @@ public class FlyWayMigrator extends AbstractFlyWayMigrator {
         this.resourceMigrationPath = resourceMigrationPath;
     }
 
-    public void migrate() throws DatabaserException{
+    public void migrate(){
         Flyway flyway = new Flyway();
         flyway.setLocations("classpath:" + this.resourceMigrationPath);
         flyway.setSqlMigrationPrefix("v");

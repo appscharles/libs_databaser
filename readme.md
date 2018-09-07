@@ -5,15 +5,14 @@ This method generate migrations for all model, and changes in models after deplo
 Add to project file `build.gradle`:
 
 ```
-buildscript {
-  repositories {
-    mavenCentral()
-  }
-  dependencies {
-     classpath 'com.devskiller.jpa2ddl:jpa2ddl-gradle-plugin:0.9.12'
-  }
+repositories {
+    maven {
+        url 'http://dl.bintray.com/appscharles/libs'
+    }
 }
-apply plugin: 'com.devskiller.jpa2ddl'
+dependencies {
+    compile group: 'com.appscharles.libs', name: 'dialoger', version: '1.0.0.0-dev5'
+}
 ```
 
 Create file in `gradle/MigrationGenerator.gradle` and fill content
