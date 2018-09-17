@@ -46,7 +46,7 @@ dependencies {
     compile group: 'com.appscharles.libs', name: 'proper', version: '1.0.0.0-dev1'
     compile group: 'com.appscharles.libs', name: 'dialoger', version: '1.0.0.0-dev5'
     compile group: 'com.appscharles.libs', name: 'processer', version: '1.0.0.0-dev6'
-    compile group: 'com.appscharles.libs', name: 'ioer', version: '1.0.0.0-dev16'
+    compile group: 'com.appscharles.libs', name: 'ioer', version: '1.0.0.0-dev32'
     compile group: 'com.appscharles.libs', name: 'fxer', version: '1.0.0.0-dev34'
     compile group: 'com.appscharles.libs', name: 'logger', version: '1.0.0.0-dev20'
     compile group: 'com.appscharles.libs', name: 'jarer', version: '1.0.0.0-dev17'
