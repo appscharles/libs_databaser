@@ -11,23 +11,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
-/**
- * IDE Editor: IntelliJ IDEA
- * <p>
- * Date: 07.09.2018
- * Time: 12:14
- * Project name: databaser
- *
- * @author Karol Golec karol.itgolo@gmail.com
- */
 public class NewSchemasDatabaseGeneratorTest extends TestCase {
 
     @Test
     public void shouldCreateDllFile() throws IOException, DatabaserException {
         File tempDatabase = new File("E:\\others\\tests\\libs\\databaser\\GeneratorDll\\Database");
         File tempMigrations = new File("E:\\others\\tests\\libs\\databaser\\GeneratorDll\\Migrations");
-        DirDeleter.delete(tempDatabase);
-        DirDeleter.delete(tempMigrations);
+       if (tempDatabase.exists()){
+            DirDeleter.delete(tempDatabase);
+        }
+        if (tempMigrations.exists()){
+            DirDeleter.delete(tempMigrations);
+        }
         NewSchemasDatabaseGenerator generator = new NewSchemasDatabaseGenerator(tempDatabase, "myDB", Arrays.asList("com.appscharles.libs.databaser.programs.tester"), tempMigrations);
         generator.generate();
         Assert.assertTrue(tempMigrations.list().length>0);
