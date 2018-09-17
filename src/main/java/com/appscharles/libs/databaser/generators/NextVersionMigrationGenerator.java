@@ -27,10 +27,12 @@ public class NextVersionMigrationGenerator {
      */
     public Integer generate() {
         Integer version = 0;
-        for (String filename : this.migrationsDir.list()) {
-            Integer versionFile = getVersionFile(filename);
-            if (versionFile != null && versionFile > version){
-                version = versionFile;
+        if (this.migrationsDir.exists()){
+            for (String filename : this.migrationsDir.list()) {
+                Integer versionFile = getVersionFile(filename);
+                if (versionFile != null && versionFile > version){
+                    version = versionFile;
+                }
             }
         }
         return version + 1;
