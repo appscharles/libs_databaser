@@ -68,7 +68,8 @@ public class NewSchemasDatabaseGenerator {
             metadataSources.addAnnotatedClass(aClass);
         }
         MetadataImplementor metadataImplementor = (MetadataImplementor) metadataSources.buildMetadata();
-        File outputFile = new File(this.migrationsDir.getAbsolutePath() + "/v" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "__migration.sql");
+        Integer nextVersionMigration = new NextVersionMigrationGenerator(this.migrationsDir).generate();
+        File outputFile = new File(this.migrationsDir.getAbsolutePath() + "/v" + nextVersionMigration + "__" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "_migration.sql");
         SchemaUpdateBuilder.create(outputFile)
                 .build()
                 .execute( EnumSet.of(TargetType.SCRIPT), metadataImplementor);

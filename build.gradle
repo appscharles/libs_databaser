@@ -14,11 +14,8 @@ plugins {
     id 'com.jfrog.bintray' version '1.8.3'
 }
 
-tasks.withType(Test) {enabled = false}
-
-
 group 'com.appscharles.libs'
-version '1.0.0.0-dev22'
+version '1.0.0.0-dev23'
 
 sourceCompatibility = 1.8
 
