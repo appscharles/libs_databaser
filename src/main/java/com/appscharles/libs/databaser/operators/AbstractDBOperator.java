@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * The type Abstract db session name.
+ * The type Abstract db operator.
  */
 public abstract class AbstractDBOperator {
 
@@ -56,10 +56,14 @@ public abstract class AbstractDBOperator {
      * @throws DatabaserException the databaser exception
      */
     public static <T> T get(Class entityClass, Serializable id, String sessionFactoryName) throws DatabaserException {
-        Session session = SFManager.getSessionFactory(sessionFactoryName).openSession();
-        T result = (T) session.get(entityClass, id);
-        session.close();
-        return result;
+        try {
+            Session session = SFManager.getSessionFactory(sessionFactoryName).openSession();
+            T result = (T) session.get(entityClass, id);
+            session.close();
+            return result;
+        } catch (Exception e) {
+            throw new DatabaserException(e);
+        }
     }
 
     /**
@@ -72,15 +76,19 @@ public abstract class AbstractDBOperator {
      * @throws DatabaserException the databaser exception
      */
     public static <T extends List> T getAll(Class entityClass, String sessionFactoryName) throws DatabaserException {
-        Session session = SFManager.getSessionFactory(sessionFactoryName).openSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<T> criteriaQuery = builder.createQuery(entityClass);
-        Root<T> root = criteriaQuery.from(entityClass);
-        criteriaQuery.select(root);
-        Query<T> q = session.createQuery(criteriaQuery);
-        T results = (T) q.getResultList();
-        session.close();
-        return results;
+        try {
+            Session session = SFManager.getSessionFactory(sessionFactoryName).openSession();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<T> criteriaQuery = builder.createQuery(entityClass);
+            Root<T> root = criteriaQuery.from(entityClass);
+            criteriaQuery.select(root);
+            Query<T> q = session.createQuery(criteriaQuery);
+            T results = (T) q.getResultList();
+            session.close();
+            return results;
+        } catch (Exception e) {
+            throw new DatabaserException(e);
+        }
     }
 
     /**
@@ -91,17 +99,34 @@ public abstract class AbstractDBOperator {
      * @throws DatabaserException the databaser exception
      */
     public static void commit(ThrowingConsumer<Session, DatabaserException> session, String sessionFactoryName) throws DatabaserException {
-        Session s = SFManager.getSessionFactory(sessionFactoryName).openSession();
-        Transaction t = s.beginTransaction();
-        session.accept(s);
-        t.commit();
-        s.close();
+        try {
+            Session s = SFManager.getSessionFactory(sessionFactoryName).openSession();
+            Transaction t = s.beginTransaction();
+            session.accept(s);
+            t.commit();
+            s.close();
+        } catch (Exception e) {
+            throw new DatabaserException(e);
+        }
     }
 
-    public static <T> T session(CallableThrowingConsumer<Session, T,  DatabaserException> session, String sessionFactoryName) throws DatabaserException {
-        Session s = SFManager.getSessionFactory(sessionFactoryName).openSession();
-        Object sessionResult = session.accept(s);
-        s.close();
-        return (T)sessionResult;
+    /**
+     * Session t.
+     *
+     * @param <T>                the type parameter
+     * @param session            the session
+     * @param sessionFactoryName the session factory name
+     * @return the t
+     * @throws DatabaserException the databaser exception
+     */
+    public static <T> T session(CallableThrowingConsumer<Session, T, DatabaserException> session, String sessionFactoryName) throws DatabaserException {
+        try {
+            Session s = SFManager.getSessionFactory(sessionFactoryName).openSession();
+            Object sessionResult = session.accept(s);
+            s.close();
+            return (T) sessionResult;
+        } catch (Exception e) {
+            throw new DatabaserException(e);
+        }
     }
 }
