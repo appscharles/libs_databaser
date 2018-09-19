@@ -84,6 +84,15 @@ public class SFManager {
         throw new DatabaserException("Not found '" + sessionFactoryName + "' session factory.");
     }
 
+    public static Boolean existSessionFactory(String sessionFactoryName) throws DatabaserException {
+        for (Map.Entry<String, SessionFactoryContainer> entry : sessionFactoryContainers.entrySet()) {
+            if (entry.getKey().equals(sessionFactoryName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Sets default session factory.
      *
